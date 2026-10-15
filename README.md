@@ -1,27 +1,66 @@
-# MasterPortfolio
+# Pai Nuñeza · Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+**I bring legacy systems back to life.**
 
-## Development server
+The personal portfolio of Ramer Pailou "Pai" Nuñeza, a Software & Product Engineer with 10+ years
+across HRIS, hotel booking, IP management, and FoxPro-to-web rebuilds.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**Live site:** [painuneza.netlify.app](https://painuneza.netlify.app/)
 
-## Code scaffolding
+## What's inside
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+| Section | What it shows |
+| --- | --- |
+| Hero | The story in one line, key stats, and the main stack (C#/.NET, React, Angular, Vue, SQL Server, Docker, Claude AI) |
+| Before → After | Legacy systems and what they became, e.g. a FoxPro desktop app rebuilt as a web platform for 200K+ members |
+| Selected Works | Projects, legacy rebuilds first, each with a details popup |
+| About | Who I am and how I work |
+| My Journey | A carousel of career chapters; click one to read what I built there |
+| `/experience` | Every role as a vertical timeline, plus a chart of roles and the tech that came with them, including the AI era |
+| Contact | A message form (Netlify Forms) and direct email |
 
-## Build
+## Tech stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- [Angular 18](https://angular.dev) (NgModules, `@defer` blocks for below-the-fold sections)
+- Bootstrap 5 and Tailwind CSS for layout, plus component CSS for the custom design
+- Font Awesome icons
+- Hosted on [Netlify](https://www.netlify.com), with Netlify Forms for the contact form
 
-## Running unit tests
+## Running it locally
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Requires Node.js 18.19+ (developed on Node 22).
 
-## Running end-to-end tests
+```bash
+npm install
+npm start            # http://localhost:4200
+npm run build        # production build in dist/browser
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The contact form only sends on Netlify. Locally, use the "Use email app" button instead.
 
-## Further help
+## Editing the content
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Most content lives in data files, so you rarely need to touch templates.
+
+| To change | Edit |
+| --- | --- |
+| Roles, dates, stories, icons, skills | [`src/app/resume/experience/experience.data.ts`](src/app/resume/experience/experience.data.ts) |
+| Projects | [`src/assets/data/projects-enhanced.json`](src/assets/data/projects-enhanced.json) |
+| Hero text, stats, stack, Before → After rows | [`src/app/resume/home/`](src/app/resume/home/) |
+| Tech and AI tools on the career timeline | [`experience-timeline.component.ts`](src/app/resume/experience-timeline/experience-timeline.component.ts) |
+| Page width for every section | `--content-max` in [`src/styles.css`](src/styles.css) |
+
+A role needs `start` and `end` (`YYYY-MM`, or `end: null` for a current role) to appear in the
+carousel and on the timeline.
+
+## Deployment
+
+Pushing to `main` deploys to Netlify using [`netlify.toml`](netlify.toml):
+
+- Builds with `ng build --configuration production` and publishes `dist/browser`.
+- Replaces the `__SITE_URL__` placeholders in `index.html` with Netlify's `$URL`, so link
+  previews (LinkedIn, Slack, etc.) get absolute URLs.
+- Redirects every path to `index.html` so routes like `/experience` work on refresh.
+
+The hidden `contact` form in [`src/index.html`](src/index.html) lets Netlify detect the form at deploy
+time. Keep its fields in sync with [`email.service.ts`](src/services/email.service.ts).
