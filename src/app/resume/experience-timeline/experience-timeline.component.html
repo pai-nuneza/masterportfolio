@@ -1,0 +1,46 @@
+<section class="timeline-section" aria-labelledby="timeline-heading">
+  <div class="container">
+    <div class="timeline-header">
+      <span class="timeline-kicker">Career timeline</span>
+      <h2 id="timeline-heading">Roles and the tech that came with them</h2>
+    </div>
+
+    <p class="timeline-hint">Swipe to see more <i class="fas fa-arrow-right"></i></p>
+
+    <div class="timeline-scroll">
+      <div class="timeline">
+        <div class="ai-band-track">
+          <div class="ai-band" [style.left.%]="aiLeft">
+            <span class="ai-band-label"><i class="fas fa-robot"></i> AI era</span>
+          </div>
+        </div>
+
+        <div class="timeline-axis">
+          <span class="axis-year" *ngFor="let y of years" [style.left.%]="y.left">{{ y.year }}</span>
+        </div>
+
+        <div class="timeline-lanes" [style.height.px]="laneCount * laneHeight">
+          <div
+            class="timeline-bar"
+            *ngFor="let bar of bars"
+            [class.timeline-bar-current]="bar.current"
+            [style.left.%]="bar.left"
+            [style.width.%]="bar.width"
+            [style.top.px]="bar.lane * laneHeight"
+            [title]="bar.title">
+            {{ bar.label }}
+          </div>
+        </div>
+
+        <div class="timeline-tech">
+          <div class="tech-group" *ngFor="let group of techGroups" [style.left.%]="group.left">
+            <span class="tech-chip" *ngFor="let tech of group.techs">{{ tech }}</span>
+          </div>
+          <div class="tech-group tech-group-ai" *ngFor="let group of aiGroups" [style.left.%]="group.left">
+            <span class="tech-chip tech-chip-ai" *ngFor="let tool of group.techs">{{ tool }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

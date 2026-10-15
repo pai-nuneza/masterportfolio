@@ -1,6 +1,6 @@
 .contact-section {
-  background: linear-gradient(180deg, rgba(0, 203, 169, 0.03), rgba(255, 255, 255, 0.012));
-  border-top: 1px solid rgba(0, 203, 169, 0.12);
+  background: linear-gradient(180deg, rgba(255, 181, 71, 0.03), rgba(255, 255, 255, 0.012));
+  border-top: 1px solid rgba(255, 181, 71, 0.12);
 }
 
 .contact-intro {
@@ -18,7 +18,7 @@
 }
 
 .contact-intro h1 span {
-  background: linear-gradient(135deg, #00cba9 0%, #39f5d5 45%, #ffffff 120%);
+  background: linear-gradient(135deg, #ffb547 0%, #ffd38a 45%, #ffffff 120%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -50,7 +50,7 @@
 .contact-card,
 .looking-card,
 .message-panel {
-  border: 1px solid rgba(0, 203, 169, 0.18);
+  border: 1px solid rgba(255, 181, 71, 0.18);
   background: rgba(255, 255, 255, 0.045);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(16px);
@@ -68,10 +68,10 @@
 
 .contact-icon {
   align-items: center;
-  background: rgba(0, 203, 169, 0.08);
-  border: 1px solid rgba(0, 203, 169, 0.18);
+  background: rgba(255, 181, 71, 0.08);
+  border: 1px solid rgba(255, 181, 71, 0.18);
   border-radius: 12px;
-  color: #00cba9;
+  color: #ffb547;
   display: inline-flex;
   flex: 0 0 48px;
   height: 48px;
@@ -119,8 +119,8 @@
 }
 
 .copy-button:hover {
-  background: rgba(0, 203, 169, 0.12);
-  border-color: rgba(0, 203, 169, 0.35);
+  background: rgba(255, 181, 71, 0.12);
+  border-color: rgba(255, 181, 71, 0.35);
   transform: translateY(-1px);
 }
 
@@ -155,9 +155,9 @@
 }
 
 .looking-card li::before {
-  background: #00cba9;
+  background: #ffb547;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 203, 169, 0.55);
+  box-shadow: 0 0 10px rgba(255, 181, 71, 0.55);
   content: "";
   height: 0.42rem;
   left: 0;
@@ -174,7 +174,7 @@
 .follow-links a {
   align-items: center;
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(0, 203, 169, 0.16);
+  border: 1px solid rgba(255, 181, 71, 0.16);
   border-radius: 12px;
   color: #dffdf8;
   display: inline-flex;
@@ -185,8 +185,8 @@
 }
 
 .follow-links a:hover {
-  background: rgba(0, 203, 169, 0.14);
-  border-color: rgba(0, 203, 169, 0.45);
+  background: rgba(255, 181, 71, 0.14);
+  border-color: rgba(255, 181, 71, 0.45);
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -219,7 +219,7 @@
 }
 
 .message-panel strong {
-  color: #00cba9;
+  color: #ffb547;
 }
 
 .message-label {
@@ -241,7 +241,7 @@
 .message-panel select,
 .message-panel textarea {
   background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(0, 203, 169, 0.14);
+  border: 1px solid rgba(255, 181, 71, 0.14);
   border-radius: 12px;
   color: #ffffff;
   font-size: 0.95rem;
@@ -267,9 +267,9 @@
 .message-panel input:focus,
 .message-panel select:focus,
 .message-panel textarea:focus {
-  background: rgba(0, 203, 169, 0.045);
-  border-color: rgba(0, 203, 169, 0.5);
-  box-shadow: 0 0 0 3px rgba(0, 203, 169, 0.1);
+  background: rgba(255, 181, 71, 0.045);
+  border-color: rgba(255, 181, 71, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 181, 71, 0.1);
 }
 
 .send-actions {
@@ -281,11 +281,11 @@
 
 .send-button {
   align-items: center;
-  background: linear-gradient(135deg, #00cba9 0%, #00a88e 100%);
+  background: linear-gradient(135deg, #ffb547 0%, #f29a1f 100%);
   border: 0;
   border-radius: 10px;
-  box-shadow: 0 12px 30px rgba(0, 203, 169, 0.22);
-  color: #001512;
+  box-shadow: 0 12px 30px rgba(255, 181, 71, 0.22);
+  color: #1a1000;
   display: inline-flex;
   flex: 1;
   font-size: 1rem;
@@ -298,13 +298,13 @@
 }
 
 .send-button:hover {
-  box-shadow: 0 16px 40px rgba(0, 203, 169, 0.34);
+  box-shadow: 0 16px 40px rgba(255, 181, 71, 0.34);
   transform: translateY(-1px);
 }
 
 .mailto-link {
   align-items: center;
-  border: 1px solid rgba(0, 203, 169, 0.25);
+  border: 1px solid rgba(255, 181, 71, 0.25);
   border-radius: 10px;
   color: #dffdf8;
   display: inline-flex;
@@ -317,8 +317,8 @@
 }
 
 .mailto-link:hover {
-  background: rgba(0, 203, 169, 0.09);
-  border-color: rgba(0, 203, 169, 0.48);
+  background: rgba(255, 181, 71, 0.09);
+  border-color: rgba(255, 181, 71, 0.48);
   color: #ffffff;
 }
 

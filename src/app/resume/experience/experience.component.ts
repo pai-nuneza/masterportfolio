@@ -1,124 +1,107 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { EXPERIENCES, Experience } from './experience.data';
+
+/** Matches the AI era start on the career timeline. */
+const AI_ERA_START = '2022-12';
+
+/** One accent per role, oldest first, so each chapter has its own colour. */
+const ACCENTS = ['#ff8a5c', '#5cc8ff', '#ff6fa8', '#b38cff', '#ffb547', '#7ee081', '#ffd25c', '#00cba9'];
+
+interface Chapter {
+  exp: Experience;
+  label: string;
+  year: string;
+  endYear: string;
+  accent: string;
+  /** Show the "AI era begins" marker just below this chapter. */
+  aiEraBelow: boolean;
+}
 
 @Component({
   selector: 'app-experience',
   templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.css'],
+  styleUrls: ['./experience.component.css', './experience-carousel.css'],
 })
-export class ExperienceComponent {
-  showFullHistory = false;
+export class ExperienceComponent implements OnInit, OnDestroy {
+  /** Full shows the vertical chapter timeline; otherwise the home carousel. */
+  @Input() full = false;
 
-  experiences = [
-    {
-      company: 'Codev',
-      position: 'Senior Software Developer',
-      date: 'Mar 2024 - Present',
-      location: 'International team',
-      description: 'IPR management platform for patents, trademarks, copyrights, renewals, due dates, and official fee workflows.',
-      highlights: [
-        'Build C#/.NET backend features for official fee calculation, due date calculation, validation rules, and IP-related business logic.',
-        'Develop Vue.js frontend features and maintain PHP applications built with Slim and Blade templates.',
-        'Use GitHub Copilot and ChatGPT to support code analysis, debugging, documentation review, and test-case preparation.',
-      ],
-      companyWebsite: 'https://www.codev.com/',
-      skills: ['C#', '.NET', 'Vue.js', 'PHP', 'Slim', 'Blade', 'Agile'],
-    },
-    {
-      company: 'Contract / Freelance',
-      position: 'Technical Lead Developer',
-      date: 'Sept 2022 - Jan 2024',
-      location: 'Remote',
-      description: 'Led a small team rebuilding a legacy FoxPro desktop system into a PHP/MySQL web application.',
-      highlights: [
-        'Led 4 developers, managed tasks, reviewed pull requests, and guided technical decisions throughout the project.',
-        'Designed the new relational MySQL database and mapped legacy FoxPro data into the new schema.',
-        'Built a C# WPF migration tool to convert FoxPro DBF files into MySQL relational tables.',
-        'Coordinated with the project manager and joined client meetings to clarify requirements and align priorities.',
-      ],
-      skills: ['PHP', 'MySQL', 'C#', 'WPF', 'FoxPro', 'DBF Migration', 'Team Leadership'],
-    },
-    {
-      company: 'Unient',
-      position: 'Senior Application Specialist',
-      date: 'Feb 2021 - Mar 2024',
-      location: 'Cebu, Philippines',
-      description: 'Developed terminal operations systems and internal workflow tools for Australian clients and company teams.',
-      highlights: [
-        'Built C# and Angular features for terminal operations workflows, including integrations with Navis N4.',
-        'Rebuilt the company website using Umbraco CMS so management could update content without developer support.',
-        'Created an internal timesheet and reporting tool used by 90-100 employees, reducing reliance on subscription-based HR tools.',
-        'Built a Team Configuration Management tool that helped sales estimate team cost by role, seniority, and staffing needs.',
-      ],
-      companyWebsite: 'https://www.unient.biz/',
-      skills: ['C#', 'Angular', 'Umbraco', 'SQL Server', 'Navis N4', 'Reporting'],
-    },
-    {
-      company: 'Digital Excellence Group Cebu',
-      position: 'Full Stack Developer',
-      date: 'Jun 2020 - Jan 2021',
-      location: 'Cebu, Philippines',
-      description: 'Worked on Health Watch, a web application used by employees to track and report health and wellness information.',
-      highlights: [
-        'Built full-stack features using ASP.NET MVC, C#, JavaScript, jQuery, and Chart.js.',
-        'Developed survey, reporting, and chart-based features for employee wellness data.',
-        'Improved usability by fixing issues, updating screens, and supporting backend and frontend changes.',
-      ],
-      companyWebsite: 'http://digitalexcellencegroup.com/',
-      skills: ['ASP.NET MVC', 'C#', 'JavaScript', 'jQuery', 'Chart.js', 'Bootstrap'],
-    },
-    {
-      company: 'Alliance Software, Inc.',
-      position: 'Technical Specialist II',
-      date: 'Nov 2018 - May 2020',
-      location: 'Cebu, Philippines',
-      description: 'Supported and enhanced an HRIS application through feature updates, bug fixes, and production support.',
-      highlights: [
-        'Assessed reported issues by urgency and business impact, then worked with QA and release teams to move fixes into production.',
-        'Prepared technical documentation, diagrams, and low-level design notes for feature work and project manager review.',
-      ],
-      companyWebsite: 'https://www.alliance.com.ph/index.html',
-      skills: ['HRIS', '.NET', 'SQL Server', 'QA Support', 'Documentation'],
-    },
-    {
-      company: 'M. Lhuillier Financial Services',
-      position: 'Junior Developer',
-      date: 'Sept 2015 - Nov 2018',
-      location: 'Cebu, Philippines',
-      description: 'Supported internal business application development for nationwide branch operations.',
-      highlights: [
-        'Worked on C#, ASP.NET MVC, jQuery, and Bootstrap while supporting internal business systems.',
-        'Helped build an Online Request Application for nationwide branch supply, equipment, and business requests.',
-        'Moved paper-based branch requests into an online approval workflow for branch managers, regional managers, and other approvers.',
-      ],
-      companyWebsite: 'https://mlhuillier.com/',
-      skills: ['C#', 'ASP.NET MVC', 'jQuery', 'Bootstrap', 'SQL Server', 'Workflow Systems'],
-    },
-    {
-      company: 'Freelance Project Support',
-      position: 'PHP / CodeIgniter Developer',
-      date: 'Additional project work',
-      location: 'Belgium-based client',
-      description: 'Support a task-based food and beverage management project when development tasks are available.',
-      highlights: [
-        'Handle PHP/CodeIgniter development tasks for a food and beverage management application.',
-      ],
-      skills: ['PHP', 'CodeIgniter', 'Task-Based Development'],
-    },
-  ];
+  @ViewChild('track') track?: ElementRef<HTMLElement>;
 
-  get featuredExperiences() {
-    return this.experiences.slice(0, 3);
+  /** Dated roles, oldest first. */
+  journey: Chapter[];
+  /** Every role, newest first. */
+  chapters: Chapter[];
+  /** Index into journey of the open chapter, if any. */
+  selected: number | null = null;
+  /** True while the pointer or keyboard focus is on the carousel. */
+  paused = false;
+  private autoplay?: ReturnType<typeof setInterval>;
+
+  constructor() {
+    const dated = EXPERIENCES.filter(e => e.start).sort((a, b) => a.start!.localeCompare(b.start!));
+    const toChapter = (exp: Experience): Chapter => {
+      const index = dated.indexOf(exp);
+      return {
+        exp,
+        label: index >= 0 ? `Chapter ${String(index + 1).padStart(2, '0')}` : 'Side work',
+        year: exp.start ? exp.start.slice(0, 4) : '',
+        endYear: exp.end ? exp.end.slice(0, 4) : 'Now',
+        accent: ACCENTS[index >= 0 ? index % ACCENTS.length : ACCENTS.length - 1],
+        aiEraBelow: false,
+      };
+    };
+
+    this.journey = dated.map(toChapter);
+    this.chapters = EXPERIENCES.map(toChapter);
+
+    // Newest first: the marker goes below the oldest role that started in the AI era.
+    const aiRoles = this.chapters.filter(c => c.exp.start && c.exp.start >= AI_ERA_START);
+    if (aiRoles.length) {
+      aiRoles[aiRoles.length - 1].aiEraBelow = true;
+    }
   }
 
-  get historyExperiences() {
-    return this.experiences.slice(3);
+  get current(): Chapter | null {
+    return this.selected === null ? null : this.journey[this.selected];
   }
 
-  get visibleHistoryExperiences() {
-    return this.showFullHistory ? this.historyExperiences : this.historyExperiences.slice(0, 2);
+  ngOnInit(): void {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!this.full && !reducedMotion) {
+      this.autoplay = setInterval(() => this.advance(), 4000);
+    }
   }
 
-  toggleHistory() {
-    this.showFullHistory = !this.showFullHistory;
+  ngOnDestroy(): void {
+    clearInterval(this.autoplay);
+  }
+
+  /** Opens a chapter, or closes it if it is already open. */
+  toggle(index: number): void {
+    this.selected = this.selected === index ? null : index;
+  }
+
+  /** Moves the carousel by one card. */
+  scrollJourney(direction: 1 | -1): void {
+    const track = this.track?.nativeElement;
+    const card = track?.firstElementChild as HTMLElement | null;
+    if (track && card) {
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      track.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: 'smooth' });
+    }
+  }
+
+  /** Autoplay step: next card, wrapping to the start; holds still while someone is reading. */
+  private advance(): void {
+    const track = this.track?.nativeElement;
+    if (!track || this.paused || this.selected !== null) {
+      return;
+    }
+    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      this.scrollJourney(1);
+    }
   }
 }

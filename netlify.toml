@@ -1,6 +1,7 @@
 [build]
   publish = "dist/browser"
-  command = "ng build --configuration production"
+  # Fills the link-preview URL placeholders in index.html with the site's real address.
+  command = "ng build --configuration production && sed -i \"s#__SITE_URL__#$URL#g\" dist/browser/index.html"
 
 [[redirects]]
   from = "/*"

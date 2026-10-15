@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  border-top: 1px solid rgba(0, 203, 169, 0.12);
+  border-top: 1px solid rgba(255, 181, 71, 0.12);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   color: #b9cbd6;
   font-size: 0.85rem;
@@ -42,8 +42,8 @@
 .loading-spinner {
   width: 1.15rem;
   height: 1.15rem;
-  border: 2px solid rgba(0, 203, 169, 0.25);
-  border-top-color: #00cba9;
+  border: 2px solid rgba(255, 181, 71, 0.25);
+  border-top-color: #ffb547;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -55,7 +55,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .loading-spinner {
+  .loading-spinner,
+  .legacy-text::after {
     animation: none;
   }
 }
@@ -65,7 +66,7 @@
   position: absolute;
   inset: -20%;
   z-index: -2;
-  background: linear-gradient(115deg, transparent 42%, rgba(0, 203, 169, 0.1) 50%, transparent 58%);
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 181, 71, 0.1) 50%, transparent 58%);
   background-size: 220% 100%;
   filter: blur(18px);
   pointer-events: none;
@@ -101,13 +102,39 @@
   text-transform: uppercase;
 }
 
-.hero-name {
+.hero-title-sep {
+  color: #ffb547;
+  margin: 0 0.4rem;
+}
+
+.hero-headline {
   color: #ffffff;
-  font-size: 4rem;
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
   font-weight: 800;
-  letter-spacing: 0;
-  line-height: 1.1;
-  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin-bottom: 1.5rem;
+}
+
+.legacy-text {
+  position: relative;
+  color: #ffb547;
+  font-family: "Consolas", "Courier New", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 22px rgba(255, 181, 71, 0.35);
+}
+
+.legacy-text::after {
+  content: "_";
+  margin-left: 0.05em;
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 .gradient-text {
@@ -126,85 +153,6 @@
   line-height: 1.7;
 }
 
-.tech-stack-inline {
-  margin-bottom: 2.5rem;
-}
-
-.tech-icons-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.tech-icon-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  min-height: 46px;
-  padding: 0.55rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 10px 30px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 700;
-  line-height: 1;
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.tech-icon-item:hover {
-  transform: translateY(-3px);
-  border-color: rgba(0, 203, 169, 0.6);
-  background: rgba(0, 203, 169, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 14px 36px rgba(0, 203, 169, 0.18);
-}
-
-.tech-icon-item img {
-  flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  filter: grayscale(10%) drop-shadow(0 0 6px rgba(255, 255, 255, 0.18));
-  transition: filter 0.3s ease;
-}
-
-.inline-image-wrap {
-  position: relative;
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-loading::after {
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid rgba(0, 203, 169, 0.25);
-  border-top-color: #00cba9;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-  content: "";
-}
-
-.inline-image-wrap.image-loading img {
-  opacity: 0;
-}
-
-.tech-icon-item:hover img {
-  filter: grayscale(0%);
-}
-
-.tech-icon-item span {
-  white-space: nowrap;
-}
-
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
@@ -214,16 +162,12 @@
   margin-bottom: 2.5rem;
 }
 
-.hero-stats-mobile {
-  margin-top: 2rem;
-}
-
 .stat-item {
   text-align: center;
 }
 
 .stat-number {
-  color: #00cba9;
+  color: #ffb547;
   font-size: 2rem;
   font-weight: 800;
   line-height: 1;
@@ -271,23 +215,23 @@
 
 .btn-primary-custom {
   border: 2px solid transparent;
-  background: linear-gradient(135deg, #00cba9 0%, #00a88e 100%);
-  box-shadow: 0 4px 20px rgba(0, 203, 169, 0.3);
+  background: linear-gradient(135deg, #ffb547 0%, #f29a1f 100%);
+  box-shadow: 0 4px 20px rgba(255, 181, 71, 0.3);
   color: #000000;
 }
 
 .btn-secondary-custom {
-  border: 2px solid rgba(0, 203, 169, 0.5);
+  border: 2px solid rgba(255, 181, 71, 0.5);
   background: transparent;
-  color: #00cba9;
+  color: #ffb547;
   backdrop-filter: blur(10px);
 }
 
 .btn-primary-custom:hover,
 .btn-secondary-custom:hover {
   transform: translateY(-3px);
-  border-color: #00cba9;
-  box-shadow: 0 8px 30px rgba(0, 203, 169, 0.3);
+  border-color: #ffb547;
+  box-shadow: 0 8px 30px rgba(255, 181, 71, 0.3);
 }
 
 .btn-primary-custom:hover {
@@ -296,6 +240,128 @@
 
 .btn-secondary-custom:hover {
   color: #ffffff;
+}
+
+.hero-transform {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.25rem;
+}
+
+.transform-chip {
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-family: "Consolas", "Courier New", ui-monospace, monospace;
+  font-size: 0.9rem;
+}
+
+.transform-legacy {
+  border: 1px dashed rgba(255, 181, 71, 0.55);
+  background: rgba(255, 181, 71, 0.08);
+  color: #ffcb7d;
+}
+
+.transform-modern {
+  border: 1px solid rgba(0, 203, 169, 0.6);
+  background: rgba(0, 203, 169, 0.12);
+  color: #7ff5e1;
+  box-shadow: 0 0 24px rgba(0, 203, 169, 0.2);
+}
+
+.transform-arrow {
+  color: #00cba9;
+  font-size: 1.25rem;
+}
+
+.hero-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-stack li {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #a9bac9;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.hero-stack li.hero-stack-primary {
+  border-color: rgba(255, 181, 71, 0.6);
+  background: rgba(255, 181, 71, 0.12);
+  color: #ffd9a0;
+}
+
+.modernization-section {
+  padding: 4rem 0;
+}
+
+.modernization-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.modernization-kicker {
+  color: #ffb547;
+  font-family: "Consolas", "Courier New", ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.modernization-header h2 {
+  margin: 0.5rem 0 0;
+  color: #ffffff;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
+}
+
+.modernization-list {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.modernization-item {
+  display: grid;
+  grid-template-columns: 15rem auto minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modernization-before {
+  color: #ffb547;
+  font-family: "Consolas", "Courier New", ui-monospace, monospace;
+  font-size: 0.95rem;
+}
+
+.modernization-arrow {
+  color: #00cba9;
+}
+
+.modernization-after {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.modernization-meta {
+  color: #7f93a6;
+  font-size: 0.85rem;
+  text-align: right;
+  white-space: nowrap;
 }
 
 @media (max-width: 991px) {
@@ -312,9 +378,6 @@
     padding: 0;
   }
 
-  .hero-name {
-    font-size: 3rem;
-  }
 
   .hero-title {
     font-size: 0.95rem;
@@ -325,14 +388,31 @@
   }
 }
 
+@media (max-width: 767px) {
+  .modernization-item {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.25rem 0.75rem;
+  }
+
+  .modernization-before {
+    grid-column: 1 / -1;
+  }
+
+  .modernization-meta {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+}
+
 @media (max-width: 576px) {
+  .transform-chip {
+    font-size: 0.8rem;
+  }
+
   .hero-content {
     padding: 1rem 0;
   }
 
-  .hero-name {
-    font-size: 2rem;
-  }
 
   .hero-title {
     font-size: 0.85rem;
@@ -343,24 +423,6 @@
     margin-bottom: 1.5rem;
   }
 
-  .tech-stack-inline {
-    margin-bottom: 2rem;
-  }
-
-  .tech-icons-list {
-    gap: 0.65rem;
-  }
-
-  .tech-icon-item {
-    min-height: 42px;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.85rem;
-  }
-
-  .tech-icon-item img {
-    width: 22px;
-    height: 22px;
-  }
 
   .hero-stats {
     gap: 1rem;

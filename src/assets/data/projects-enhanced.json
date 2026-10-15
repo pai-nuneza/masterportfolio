@@ -1,82 +1,73 @@
 [
   {
-    "id": "sydney-boats",
-    "title": "Harbour Fleet Boats & Yachts",
-    "text": "Browse, Book, and Sail Sydney’s Finest Fleet.",
-    "description": "A full-featured Sydney boat hire portal that allows users to explore available vessels, check real-time availability, customize cruise packages, and complete bookings online. Built with Angular and Bootstrap, the platform provides a smooth, responsive experience with secure payments, fleet management tools, and automated notifications—designed to streamline both customer booking and operator management workflows.",
+    "id": "ppsta",
+    "title": "PPSTA",
+    "text": "Philippine Public School Teachers Association - Insurance System",
+    "description": "A web-based insurance management application for the Philippine Public School Teachers Association (PPSTA), the largest professional organization for public school educators in the Philippines with over 200,000 members nationwide. This system is a modernization of a legacy FoxPro desktop application, redesigned to support scalable, secure, and centralized operations.",
     "buttonText": "Go to site",
-    "link": "https://sydney-boats.netlify.app/home",
-    "tech": "Angular, Bootstrap",
-    "technologies": ["Angular", "Bootstrap"],
-    "category": "Web Portal",
+    "link": "https://dev.ppsta.ubiveloxph.com/dashboard/",
+    "tech": "PHP, CakePHP, Bootstrap, JavaScript, MySQL, jQuery",
+    "technologies": [
+      "CakePHP",
+      "PHP",
+      "Bootstrap",
+      "MySQL",
+      "jQuery"
+    ],
+    "category": "Legacy Modernization",
     "date": "2025",
-    "imgLink": "https://images.unsplash.com/photo-1604737637145-48cc31d160eb?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "imgLink": "assets/images/ppsta-1.png",
     "featured": true,
     "isLargeCard": true,
-    "status": "MVP Ready",
-    "liveLink": "https://sydney-boats.netlify.app/home",
+    "status": "In progress",
+    "liveLink": "https://dev.ppsta.ubiveloxph.com/dashboard/",
     "coreFeatures": [
-      "Real-time boat availability and booking",
-      "Fleet catalog with photos, specs, and pricing",
-      "Custom cruise packages with optional add-ons",
-      "Weather updates and safety information",
-      "Secure payment flow with automated confirmations"
+      "Member management and profiling",
+      "Insurance plan enrollment and tracking",
+      "Premium payment processing and history",
+      "Claims submission and status monitoring",
+      "Administrative dashboard with analytics and reporting",
+      "Role-based access control"
     ],
-    "isPersonal": false
+    "projectHighlights": [
+      "Modernized a legacy FoxPro desktop application into a scalable web-based system",
+      "Designed and built a custom FoxPro-to-MySQL data migration tool to ensure data integrity and continuity",
+      "Led and coordinated a team of developers, overseeing architecture decisions, task delegation, and code reviews",
+      "Implemented improved data structures and workflows to support long-term maintainability"
+    ],
+    "role": "Lead Developer / Technical Lead"
   },
-  {
-    "id": "unient",
-    "title": "Unient",
-    "text": "Company website",
-    "description": "Corporate website for Unient built on .NET and Umbraco CMS. Features content management, dynamic page creation, and enterprise-level architecture. Provides a professional online presence with easy content updates.",
-    "buttonText": "Go to site",
-    "link": "https://unient.biz",
-    "tech": ".NET, Umbraco",
-    "technologies": [".NET", "Umbraco CMS", "C#"],
-    "category": "Corporate Website",
-    "date": "2023",
-    "imgLink": "assets/images/unient-1.png",
-    "featured": false,
-    "isLargeCard": false,
-    "status": "released",
-    "liveLink": "https://unient.biz"
-  },
-
   {
     "id": "migration-tool",
-    "title": "Foxpro To MySQL Migration Tool",
-    "text": "A tool to migrate Foxpro DBF files to MySQL database.",
-    "description": "A WPF .NET C# application that reads Foxpro DBF files and migrates the data to a MySQL database. It supports batch processing of multiple DBF files, data type mapping, and error handling. The tool provides a user-friendly interface for selecting source files, configuring database connections, and monitoring migration progress.",
+    "title": "FoxPro to MySQL Migration Tool",
+    "text": "Moves legacy FoxPro DBF data into a relational MySQL database.",
+    "description": "A C# WPF desktop tool that reads legacy FoxPro DBF files and migrates the data into a new relational MySQL schema. Built to move a FoxPro insurance system to the web without losing data, it supports batch processing, data type mapping, stop and resume, and progress and error reporting.",
     "buttonText": "View on GitHub",
-    "link": "https://github.com/pai-nuneza/SemanticSearchAPI",
-    "tech": ".NET 8, ML.NET, ONNX Runtime",
-    "technologies": [".NET 10", "Desktop App", "C#", "WPF"],
-    "category": "Web API Development",
-    "date": "2025",
-    "imgLink": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "highlights": [
-      "Dual embedding providers: ML.NET TF-IDF (local, fast) and ONNX Runtime (neural networks)",
-      "384-dimensional vector embeddings with cosine similarity ranking",
-      "Customizable training data via training-data.json for domain-specific optimization",
-      "Auto-seeding with 22 diverse documents (Marvel movies, family films, tech concepts)",
-      "Modern responsive UI with Bootstrap 5 and real-time database status",
-      "Diagnostic endpoints for embedding testing, database status, and reseeding",
-      "Clean architecture with dependency injection and provider pattern",
-      "Production-ready with configurable providers via appsettings.json"
+    "link": "https://github.com/pai-nuneza/FoxProToMySqlMigrator",
+    "tech": "C#, WPF, .NET, MySQL",
+    "technologies": [
+      "C#",
+      "WPF",
+      ".NET",
+      "MySQL",
+      "FoxPro DBF"
     ],
-    "featured": false,
-    "isLargeCard": false,
+    "category": "Legacy Data Migration",
+    "date": "2025",
+    "imgLink": "assets/images/foxpro-migrator.png",
+    "featured": true,
+    "isLargeCard": true,
     "status": "released",
     "liveLink": null,
     "githubLink": "https://github.com/pai-nuneza/FoxProToMySqlMigrator",
     "isPrivate": false,
     "isPersonal": false,
     "coreFeatures": [
-      "Reads Foxpro DBF files and extracts data",
-      "Maps Foxpro data types to MySQL data types",
-      "Supports batch processing of multiple DBF files",
-      "Has stop and resume releasedity",
-      "Displays migration progress and error handling"
+      "Reads FoxPro DBF files and extracts data",
+      "Maps FoxPro data types to MySQL data types",
+      "Batch processing of multiple DBF files",
+      "Stop and resume long-running migrations",
+      "Shows migration progress and errors"
     ]
   },
   {
@@ -110,7 +101,7 @@
     "featured": false,
     "isLargeCard": false,
     "status": "released",
-    "liveLink": "http://mysemanticsearch.runasp.net/",
+    "liveLink": null,
     "githubLink": "https://github.com/pai-nuneza/SemanticSearchAPI",
     "isPrivate": false,
     "isPersonal": true,
@@ -123,95 +114,52 @@
     ]
   },
   {
-    "id": "ppsta",
-    "title": "PPSTA",
-    "text": "Philippine Public School Teachers Association - Insurance System",
-    "description": "A web-based insurance management application for the Philippine Public School Teachers Association (PPSTA), the largest professional organization for public school educators in the Philippines with over 200,000 members nationwide. This system is a modernization of a legacy FoxPro desktop application, redesigned to support scalable, secure, and centralized operations.",
+    "id": "unient",
+    "title": "Unient",
+    "text": "Company website",
+    "description": "Corporate website for Unient built on .NET and Umbraco CMS. Features content management, dynamic page creation, and enterprise-level architecture. Provides a professional online presence with easy content updates.",
     "buttonText": "Go to site",
-    "link": "https://dev.ppsta.ubiveloxph.com/dashboard/",
-    "tech": "PHP, CakePHP, Bootstrap, JavaScript, MySQL, jQuery",
-    "technologies": ["CakePHP", "PHP", "Bootstrap", "MySQL", "jQuery"],
-    "category": "Web Application / Insurance Management System",
-    "date": "2025",
-    "imgLink": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "testCredentials": {
-      "username": "admin",
-      "password": "admin",
-      "otp": "118899",
-      "instructions": "Use the provided credentials to access the admin dashboard. Explore member management, insurance plans, claims processing, and reporting features."
-    },
-    "featured": true,
-    "isLargeCard": true,
-    "status": "In progress",
-    "liveLink": "https://dev.ppsta.ubiveloxph.com/dashboard/",
-    "coreFeatures": [
-      "Member management and profiling",
-      "Insurance plan enrollment and tracking",
-      "Premium payment processing and history",
-      "Claims submission and status monitoring",
-      "Administrative dashboard with analytics and reporting",
-      "Role-based access control"
+    "link": "https://unient.biz",
+    "tech": ".NET, Umbraco",
+    "technologies": [
+      ".NET",
+      "Umbraco CMS",
+      "C#"
     ],
-    "projectHighlights": [
-      "Modernized a legacy FoxPro desktop application into a scalable web-based system",
-      "Designed and built a custom FoxPro-to-MySQL data migration tool to ensure data integrity and continuity",
-      "Led and coordinated a team of developers, overseeing architecture decisions, task delegation, and code reviews",
-      "Implemented improved data structures and workflows to support long-term maintainability"
-    ],
-    "role": "Lead Developer / Technical Lead"
-  },
-  {
-    "id": "bpls",
-    "title": "Business Permit Licensing System (LGU)",
-    "text": "A digital platform for managing business permits and municipal licensing.",
-    "description": "A municipality-level Business Permit Licensing System designed to streamline business registration, permit processing, and compliance workflows. Built with Laravel and Vue.js, the platform supports digital applications, automated fee computation, payment integration, document management, approvals, and real-time tracking. Developed with a responsive and modern interface to help local government units manage operations efficiently and improve service delivery.",
-    "buttonText": "Go to site",
-    "link": "https://hris.mirallesresort.com/bms/public",
-    "tech": "Laravel, Vue, Bootstrap",
-    "technologies": ["Laravel", "Vue", "Bootstrap", "MySQL", "jQuery"],
-    "category": "Web Portal",
-    "date": "2025",
-    "imgLink": "assets/images/bpls.png",
-    "featured": true,
-    "isLargeCard": false,
-    "status": "MVP Ready",
-    "liveLink": "https://lgu.jnccglobalsolutionsinc.com/bpls/public/login",
-    "testCredentials": {
-      "username": "admin@example.com",
-      "password": "password",
-      "instructions": "Log in with the test credentials to explore the full licensing workflow—including business applications, fee computation, payments, document review, approvals, and analytics dashboards."
-    },
-    "coreFeatures": [
-      "Streamlined business registration and permit processing",
-      "Automated fee computation with payment integration",
-      "Digital document submission, review, and approval workflows",
-      "Real-time application and renewal status tracking",
-      "Reporting and analytics for LGU compliance and revenue monitoring"
-    ]
-  },
-  {
-    "id": "angular-hub",
-    "title": "Angular Hub",
-    "text": "Your Angular Resource Center",
-    "description": "A comprehensive resource center for Angular developers, featuring tutorials, best practices, component libraries, and tools to enhance Angular development workflow.",
-    "buttonText": "Visit Angular Hub",
-    "link": "https://angular-hub.netlify.app/",
-    "tech": "Angular, TypeScript, SCSS",
-    "technologies": ["Angular", "TypeScript", "SCSS", "HTML"],
-    "category": "Educational Resource",
-    "date": "2025",
-    "imgLink": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Corporate Website",
+    "date": "2023",
+    "imgLink": "assets/images/unient-1.png",
     "featured": false,
     "isLargeCard": false,
-    "status": "Live",
-    "liveLink": "https://angular-hub.netlify.app/",
-    "isPersonal": true,
+    "status": "released",
+    "liveLink": "https://unient.biz"
+  },
+  {
+    "id": "sydney-boats",
+    "title": "Harbour Fleet Boats & Yachts",
+    "text": "Browse, Book, and Sail Sydney’s Finest Fleet.",
+    "description": "A full-featured Sydney boat hire portal that allows users to explore available vessels, check real-time availability, customize cruise packages, and complete bookings online. Built with Angular and Bootstrap, the platform provides a smooth, responsive experience with secure payments, fleet management tools, and automated notifications—designed to streamline both customer booking and operator management workflows.",
+    "buttonText": "Go to site",
+    "link": "https://sydney-boats.netlify.app/home",
+    "tech": "Angular, Bootstrap",
+    "technologies": [
+      "Angular",
+      "Bootstrap"
+    ],
+    "category": "Web Portal",
+    "date": "2025",
+    "imgLink": "assets/images/boats-1.png",
+    "featured": false,
+    "isLargeCard": false,
+    "status": "MVP Ready",
+    "liveLink": "https://sydney-boats.netlify.app/home",
     "coreFeatures": [
-      "Angular tutorials and guides",
-      "Component library showcase",
-      "Best practices documentation",
-      "Development tools and resources",
-      "Community-driven content"
-    ]
+      "Real-time boat availability and booking",
+      "Fleet catalog with photos, specs, and pricing",
+      "Custom cruise packages with optional add-ons",
+      "Weather updates and safety information",
+      "Secure payment flow with automated confirmations"
+    ],
+    "isPersonal": false
   }
 ]

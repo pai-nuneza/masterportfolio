@@ -17,22 +17,17 @@ export class ContactMeComponent {
   constructor(private emailService: EmailService) {}
 
   submitForm(): void {
-    const emailContent = {
-      name: this.name,
-      email: this.email,
-      message: this.message,
-    };
-
-    this.emailService.sendEmail(emailContent).subscribe({
-      next: (v) => {
-        alert('Message sent successfully.');
-        this.clearForm();
-      },
-      error: (e) => {
-        console.log(e)
-        alert('An error occurred. Please try again later.');
-      },
-    });
+    this.emailService
+      .sendEmail({ name: this.name, email: this.email, projectType: this.projectType, message: this.message })
+      .subscribe({
+        next: () => {
+          alert('Thanks! Your message was sent. I will get back to you soon.');
+          this.clearForm();
+        },
+        error: () => {
+          alert(`Sorry, the message could not be sent. Please email me at ${this.contactEmail} instead.`);
+        },
+      });
   }
 
   clearForm(): void {

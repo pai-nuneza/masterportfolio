@@ -2,7 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Pai Nuñeza</title>
+    <title>Pai Nuñeza · Software & Product Engineer</title>
+    <meta name="description" content="Pai Nuñeza brings legacy systems back to life: 10+ years building C#/.NET, Angular, React, and PHP web apps, including FoxPro-to-web rebuilds." />
+    <!-- The site URL placeholders below are filled in at build time (see netlify.toml). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:title" content="Pai Nuñeza · I bring legacy systems back to life" />
+    <meta property="og:description" content="Software & Product Engineer turning FoxPro desktop apps, paper workflows, and ageing systems into modern web applications." />
+    <meta property="og:image" content="__SITE_URL__/assets/images/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -45,7 +55,15 @@
 
   <body class="allbackground text-light">
     <app-root></app-root>
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <!-- Static copy of the contact form so Netlify Forms registers it at deploy time. -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="projectType" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
     <script
       type="text/javascript"
       src="https://assets.calendly.com/assets/external/widget.js"
