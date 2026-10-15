@@ -1,6 +1,8 @@
 export interface Experience {
   company: string;
   short: string;
+  /** Work that ran in parallel with the main jobs; drawn as a branch off the main road. */
+  side?: boolean;
   /** Font Awesome class used as the role's illustration. */
   icon: string;
   industry: string;
@@ -61,6 +63,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: 'Contract / Freelance',
+    side: true,
     story: 'Led a team bringing a FoxPro desktop system back to life as a web app.',
     icon: 'fas fa-database',
     industry: 'Legacy rebuild',
@@ -161,6 +164,7 @@ export const EXPERIENCES: Experience[] = [
   },
   {
     company: 'Freelance Project Support',
+    side: true,
     story: 'Pick up PHP tasks for a food and beverage management app on the side.',
     icon: 'fas fa-utensils',
     industry: 'Food & beverage',

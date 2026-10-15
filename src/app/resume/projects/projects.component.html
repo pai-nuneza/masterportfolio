@@ -1,8 +1,9 @@
 <section id="works" class="selected-works-section py-5" [class.modal-open]="selectedProject">
   <div class="works-container">
-    <div class="works-header">
-      <h2>Selected Works</h2>
-      <p>Legacy rebuilds first, then the web apps, APIs, and side projects I have shipped.</p>
+    <div class="section-header">
+      <span class="section-kicker">Selected works</span>
+      <h2 class="section-title">Things I’ve built and shipped</h2>
+      <p class="section-subtitle">Legacy rebuilds, client work, and personal projects.</p>
     </div>
 
     <div class="works-grid">
@@ -19,7 +20,7 @@
 
         <div class="work-content">
           <div class="work-meta">
-            <span>{{ item.category }}</span>
+            <span>{{ item.category }}<ng-container *ngIf="item.projectType === 'Personal'"> · Personal</ng-container></span>
             <span>{{ item.date }}</span>
           </div>
 
@@ -61,89 +62,67 @@
     </div>
   </div>
 
-  <div class="project-modal-backdrop" *ngIf="selectedProject" (click)="closeProject()">
-    <div class="project-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
-      <button class="modal-close" type="button" aria-label="Close project details" (click)="closeProject()">
-        <i class="fas fa-times"></i>
-      </button>
+  <div class="project-modal-backdrop" *ngIf="selectedProject as project" (click)="closeProject()">
+    <div class="project-modal" role="dialog" aria-modal="true" [attr.aria-label]="project.title"
+      (click)="$event.stopPropagation()">
+      <div class="pm-banner" [class.image-loading]="!loadedImages.has(project.imgLink)">
+        <img [src]="project.imgLink" [alt]="project.title + ' screenshot'" (load)="markImageLoaded(project.imgLink)" />
+        <button class="pm-close" type="button" aria-label="Close project details" (click)="closeProject()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
 
-      <div class="modal-body">
-        <div class="modal-top">
-          <div class="modal-heading">
-            <span class="modal-kicker">{{ selectedProject.category }} / {{ selectedProject.date }}</span>
-            <h3>{{ selectedProject.title }}</h3>
+      <div class="pm-body">
+        <span class="section-kicker">{{ project.category }} · {{ project.date }}</span>
+        <h3 class="pm-title">{{ project.title }}</h3>
 
-            <p class="modal-description">{{ selectedProject.description }}</p>
-
-            <div class="modal-actions">
-              <a
-                *ngIf="selectedProject.liveLink && selectedProject.liveLink !== '#'"
-                [href]="selectedProject.liveLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="modal-link modal-link-primary">
-                <i class="fas fa-external-link-alt"></i>
-                Live Demo
-              </a>
-              <a
-                *ngIf="selectedProject.githubLink"
-                [href]="selectedProject.githubLink"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="modal-link modal-link-secondary">
-                <i class="fab fa-github"></i>
-                View on GitHub
-              </a>
-            </div>
-          </div>
-
-          <div class="modal-hero" [class.image-loading]="!loadedImages.has(selectedProject.imgLink)">
-            <img
-              [src]="selectedProject.imgLink"
-              [alt]="selectedProject.title"
-              (load)="markImageLoaded(selectedProject.imgLink)" />
-          </div>
+        <div class="pm-chips">
+          <span class="pm-chip" *ngIf="project.role"><i class="fas fa-user-tie"></i> {{ project.role }}</span>
+          <span class="pm-chip"><i class="fas fa-circle pm-status-dot"></i> {{ statusLabel(project.status) }}</span>
+          <span class="pm-chip">
+            <i [class]="project.projectType === 'Personal' ? 'fas fa-user' : 'fas fa-briefcase'"></i>
+            {{ project.projectType === 'Personal' ? 'Personal project' : 'Client work' }}
+          </span>
         </div>
 
-        <div class="modal-content-grid">
-          <div class="modal-main-column">
-            <div class="modal-section" *ngIf="selectedProject.coreFeatures?.length">
-              <h4>Core Features</h4>
-              <ul class="feature-list">
-                <li *ngFor="let feature of selectedProject.coreFeatures">{{ feature }}</li>
+        <p class="pm-description">{{ project.description }}</p>
+
+        <div class="pm-grid">
+          <div class="pm-main">
+            <section class="pm-section" *ngIf="highlightsOf(project).length">
+              <h4>{{ project.projectHighlights?.length ? 'What I did' : 'Highlights' }}</h4>
+              <ul class="pm-list">
+                <li *ngFor="let item of highlightsOf(project)">{{ item }}</li>
               </ul>
-            </div>
+            </section>
+
+            <section class="pm-section" *ngIf="project.coreFeatures?.length">
+              <h4>Core features</h4>
+              <ul class="pm-list">
+                <li *ngFor="let feature of project.coreFeatures">{{ feature }}</li>
+              </ul>
+            </section>
           </div>
 
-          <div class="modal-side-column">
-            <div class="modal-section" *ngIf="selectedProject.technologies?.length">
-              <h4>Technologies</h4>
-              <div class="modal-tech-list">
-                <span class="tech-pill" *ngFor="let tech of selectedProject.technologies">{{ tech }}</span>
+          <aside class="pm-side">
+            <section class="pm-section" *ngIf="project.technologies?.length">
+              <h4>Tech stack</h4>
+              <div class="pm-tech">
+                <span *ngFor="let tech of project.technologies">{{ tech }}</span>
               </div>
-            </div>
+            </section>
 
-            <div class="modal-section" *ngIf="selectedProject.testCredentials">
-              <h4>Test Access</h4>
-              <div class="credentials-grid">
-                <div>
-                  <span>Username</span>
-                  <code>{{ selectedProject.testCredentials.username }}</code>
-                </div>
-                <div>
-                  <span>Password</span>
-                  <code>{{ selectedProject.testCredentials.password }}</code>
-                </div>
-                <div *ngIf="selectedProject.testCredentials.otp">
-                  <span>OTP</span>
-                  <code>{{ selectedProject.testCredentials.otp }}</code>
-                </div>
-              </div>
-              <p class="credential-note" *ngIf="selectedProject.testCredentials.instructions">
-                {{ selectedProject.testCredentials.instructions }}
-              </p>
+            <div class="pm-links">
+              <a *ngIf="project.liveLink && project.liveLink !== '#'" [href]="project.liveLink" target="_blank"
+                rel="noopener noreferrer" class="pm-link pm-link-primary">
+                <i class="fas fa-external-link-alt"></i> Live demo
+              </a>
+              <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" rel="noopener noreferrer"
+                class="pm-link">
+                <i class="fab fa-github"></i> View on GitHub
+              </a>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

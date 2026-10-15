@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Pai Nuñeza · Software & Product Engineer</title>
-    <meta name="description" content="Pai Nuñeza brings legacy systems back to life: 10+ years building C#/.NET, Angular, React, and PHP web apps, including FoxPro-to-web rebuilds." />
+    <meta name="description" content="Pai Nuñeza brings legacy systems back to life: 11+ years building C#/.NET, Angular, React, and PHP web apps, including FoxPro-to-web rebuilds." />
     <!-- The site URL placeholders below are filled in at build time (see netlify.toml). -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="__SITE_URL__/" />
@@ -50,10 +50,192 @@
         background-color: rgb(16 29 62);
         /* background-image: linear-gradient(to right, rgb(16, 29, 62), #122219); */
       }
+
+      /* ---------- Splash: armour covers the person, powers on, then flies off once the page is ready.
+         Motion is driven by GSAP in the script at the end of body; these are the static styles. ---------- */
+      html.splash-lock {
+        overflow: hidden;
+      }
+
+      #splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        overflow: hidden;
+      }
+
+      /* The backdrop slides up behind the figure to uncover the page. */
+      .splash-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 45%, #0e1834, #050a17 65%);
+        will-change: transform;
+      }
+
+      /* Light the suit throws on its surroundings once it powers on. */
+      .splash-light {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 44%, rgba(0, 203, 169, 0.3), rgba(0, 203, 169, 0.08) 22%, transparent 50%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .splash-stage {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .splash-figure {
+        position: relative;
+        width: min(42vw, 190px);
+        filter: brightness(0.7);
+        will-change: transform;
+      }
+
+      /* Thruster light pooling on the floor beneath him. */
+      .splash-floor {
+        position: absolute;
+        bottom: -6%;
+        left: 50%;
+        width: 180%;
+        height: 18%;
+        background: radial-gradient(ellipse at center, rgba(127, 245, 225, 0.45), transparent 70%);
+        opacity: 0;
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .splash-figure svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+
+      .splash-figure .glow {
+        fill: #00cba9;
+        opacity: 0;
+        filter: drop-shadow(0 0 4px #00cba9) drop-shadow(0 0 10px #00cba9);
+      }
+
+      .splash-figure .pulse,
+      .splash-figure .burst {
+        fill: none;
+        stroke: #7ff5e1;
+        stroke-width: 2;
+        opacity: 0;
+      }
+
+      /* Hidden until GSAP brings them in. */
+      .splash-figure .part,
+      .splash-figure .flame {
+        opacity: 0;
+      }
+
+      .splash-text {
+        margin: 0;
+        color: #ffb547;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
     </style>
+    <!-- GSAP drives the splash animation (pinned version + integrity hash). -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"
+      integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body class="allbackground text-light">
+    <!-- Splash: shown until the app and its assets are ready. Animated and removed by the script at the end of body. -->
+    <div id="splash" role="status" aria-label="Loading the portfolio">
+      <div class="splash-bg"></div>
+      <div class="splash-light"></div>
+      <div class="splash-stage">
+        <div class="splash-figure">
+          <div class="splash-floor"></div>
+          <svg viewBox="0 0 200 330" aria-hidden="true">
+            <defs>
+              <linearGradient id="splash-plate" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffc266" />
+                <stop offset="1" stop-color="#e08a12" />
+              </linearGradient>
+              <linearGradient id="splash-steel" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3a4d78" />
+                <stop offset="1" stop-color="#1a2747" />
+              </linearGradient>
+              <linearGradient id="splash-flame" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="0.35" stop-color="#7ff5e1" />
+                <stop offset="1" stop-color="#00cba9" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+
+            <!-- The person underneath: the legacy system, before the upgrade. -->
+            <g stroke="#0b1530" stroke-width="1.5" stroke-linejoin="round">
+              <rect x="76" y="258" width="21" height="22" rx="4" fill="#3b4256" />
+              <rect x="103" y="258" width="21" height="22" rx="4" fill="#3b4256" />
+              <path d="M77 186 L98 186 L96 262 L79 262 Z" fill="#59627a" />
+              <path d="M102 186 L123 186 L121 262 L104 262 Z" fill="#59627a" />
+              <path class="arm-l" d="M50 102 L64 98 L60 164 L48 164 Z" fill="#8a93a8" />
+              <path class="arm-r" d="M150 102 L136 98 L140 164 L152 164 Z" fill="#8a93a8" />
+              <circle class="arm-l" cx="54" cy="170" r="7" fill="#c9a98a" />
+              <circle class="arm-r" cx="146" cy="170" r="7" fill="#c9a98a" />
+              <path d="M66 86 Q100 78 134 86 L128 190 L72 190 Z" fill="#8a93a8" />
+              <rect x="93" y="70" width="14" height="14" fill="#c9a98a" />
+              <circle class="head" cx="100" cy="48" r="23" fill="#c9a98a" />
+              <path class="head" d="M77 44 Q80 22 100 22 Q120 22 123 44 Q112 32 100 32 Q88 32 77 44 Z" fill="#4a3b33" />
+            </g>
+
+            <!-- Thrusters: feet and hands. -->
+            <path class="flame" d="M76 284 Q84 326 92 284 Z" fill="url(#splash-flame)" />
+            <path class="flame" d="M108 284 Q116 326 124 284 Z" fill="url(#splash-flame)" />
+            <g class="arm-l"><path class="flame" d="M44 180 Q51 214 58 180 Z" fill="url(#splash-flame)" /></g>
+            <g class="arm-r"><path class="flame" d="M142 180 Q149 214 156 180 Z" fill="url(#splash-flame)" /></g>
+
+            <!-- Armour plates, in the order they lock on. data-x/y/r: where each one flies in from. -->
+            <g stroke="#0b1530" stroke-width="2" stroke-linejoin="round">
+              <path class="part" data-x="-500" data-y="-20" data-r="25" d="M62 84 L138 84 L132 140 Q100 152 68 140 Z" fill="url(#splash-plate)" />
+              <path class="part" data-x="-380" data-y="-300" data-r="-70" d="M44 86 Q44 74 62 78 L66 100 L46 104 Z" fill="url(#splash-plate)" />
+              <path class="part" data-x="380" data-y="-300" data-r="70" d="M156 86 Q156 74 138 78 L134 100 L154 104 Z" fill="url(#splash-plate)" />
+              <path class="part" data-x="440" data-y="160" data-r="-30" d="M72 146 Q100 156 128 146 L124 176 L76 176 Z" fill="url(#splash-steel)" />
+              <path class="part arm-l" data-x="-480" data-y="120" data-r="60" d="M46 104 L64 102 L60 160 L44 162 Z" fill="url(#splash-steel)" />
+              <path class="part arm-r" data-x="480" data-y="120" data-r="-60" d="M154 104 L136 102 L140 160 L156 162 Z" fill="url(#splash-steel)" />
+              <path class="part" data-x="0" data-y="460" data-r="0" d="M74 176 L126 176 L130 192 L70 192 Z" fill="url(#splash-steel)" />
+              <path class="part" data-x="-420" data-y="300" data-r="40" d="M72 192 L98 192 L95 262 L76 262 Z" fill="url(#splash-plate)" />
+              <path class="part" data-x="420" data-y="300" data-r="-40" d="M102 192 L128 192 L124 262 L105 262 Z" fill="url(#splash-plate)" />
+              <rect class="part arm-l" data-x="-360" data-y="360" data-r="-90" x="42" y="162" width="18" height="16" rx="4" fill="url(#splash-steel)" />
+              <rect class="part arm-r" data-x="360" data-y="360" data-r="90" x="140" y="162" width="18" height="16" rx="4" fill="url(#splash-steel)" />
+              <path class="part" data-x="-260" data-y="420" data-r="25" d="M74 262 L97 262 L98 282 L70 282 Z" fill="url(#splash-plate)" />
+              <path class="part" data-x="260" data-y="420" data-r="-25" d="M103 262 L126 262 L130 282 L102 282 Z" fill="url(#splash-plate)" />
+              <rect class="part" data-x="0" data-y="-420" data-r="0" x="90" y="74" width="20" height="10" rx="2" fill="url(#splash-steel)" />
+              <path class="part head" data-x="0" data-y="-480" data-r="-35" d="M70 58 Q70 18 100 16 Q130 18 130 58 L124 74 Q100 84 76 74 Z" fill="url(#splash-plate)" />
+            </g>
+
+            <path class="glow eye" d="M80 48 L95 52 L93 57 L82 54 Z" />
+            <path class="glow eye" d="M120 48 L105 52 L107 57 L118 54 Z" />
+            <circle class="glow" cx="100" cy="108" r="9" />
+            <circle class="pulse" cx="100" cy="108" r="9" />
+            <ellipse class="burst" cx="84" cy="286" rx="9" ry="4" />
+            <ellipse class="burst" cx="116" cy="286" rx="9" ry="4" />
+            <ellipse class="burst" cx="51" cy="181" rx="7" ry="3" />
+            <ellipse class="burst" cx="149" cy="181" rx="7" ry="3" />
+          </svg>
+        </div>
+        <p class="splash-text" id="splash-text">Upgrading legacy system…</p>
+      </div>
+    </div>
+
     <app-root></app-root>
 
     <!-- Static copy of the contact form so Netlify Forms registers it at deploy time. -->
@@ -64,6 +246,120 @@
       <textarea name="message"></textarea>
       <input type="text" name="bot-field" />
     </form>
+    <script>
+      // Splash timeline (GSAP). The person is the legacy system; the armour is the upgrade.
+      // It waits with the thrusters lit until the page is ready (assets loaded, fonts ready, Angular rendered),
+      // then takes off: arms out, looking up, accelerating out of view. Never blocks for more than 10 seconds; falls back to a fade without GSAP.
+      (function () {
+        var splash = document.getElementById('splash');
+        if (!splash) return;
+        var root = document.documentElement;
+        root.classList.add('splash-lock');
+
+        var ready = Promise.all([
+          new Promise(function (resolve) {
+            if (document.readyState === 'complete') resolve();
+            else window.addEventListener('load', resolve, { once: true });
+          }),
+          document.fonts ? document.fonts.ready : Promise.resolve(),
+          new Promise(function (resolve) {
+            (function check() {
+              if (document.querySelector('app-root nav')) resolve();
+              else requestAnimationFrame(check);
+            })();
+          }),
+        ]);
+
+        // Scrolling (and the scrollbar) only comes back once the splash is gone.
+        var done = false;
+        function finish() {
+          if (done) return;
+          done = true;
+          root.classList.remove('splash-lock');
+          splash.remove();
+        }
+        function fadeOut() {
+          splash.style.transition = 'opacity 0.35s ease';
+          splash.style.opacity = '0';
+          setTimeout(finish, 400);
+        }
+
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!window.gsap || reducedMotion) {
+          // No animation: show the finished suit, then fade once the page is ready.
+          splash.querySelectorAll('.part, .glow, .splash-light').forEach(function (el) { el.style.opacity = '1'; });
+          splash.querySelector('.splash-figure').style.filter = 'none';
+          ready.then(fadeOut);
+          setTimeout(fadeOut, 10000);
+          return;
+        }
+
+        var q = function (selector) { return splash.querySelectorAll(selector); };
+        var figure = splash.querySelector('.splash-figure');
+        var light = splash.querySelector('.splash-light');
+        var floor = splash.querySelector('.splash-floor');
+        var text = document.getElementById('splash-text');
+        var flames = q('.flame');
+        gsap.set(q('.part, .glow, .pulse, .burst'), { transformOrigin: '50% 50%' });
+        gsap.set(flames, { transformOrigin: '50% 0%', scaleY: 0 });
+
+        var idle;
+        var tl = gsap.timeline();
+        tl.to(text, { opacity: 0.85, duration: 0.4 }, 0.15);
+
+        // Suit-up: each plate flies in from its own direction and locks on.
+        q('.part').forEach(function (part, i) {
+          tl.fromTo(part,
+            { x: +part.dataset.x, y: +part.dataset.y, rotation: +part.dataset.r, opacity: 0 },
+            { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.55, ease: 'back.out(1.3)' },
+            0.4 + i * 0.08);
+        });
+
+        // Power on.
+        tl.addLabel('power', 2.0)
+          .call(function () { text.textContent = 'Back to life.'; }, null, 'power')
+          .to(q('.glow'), { opacity: 1, duration: 0.35, ease: 'power2.out' }, 'power')
+          .to(figure, { filter: 'brightness(1.08)', duration: 0.35, ease: 'power2.out' }, 'power')
+          .fromTo(light, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out', immediateRender: false }, 'power')
+          .fromTo(q('.pulse'), { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 5, duration: 0.8, ease: 'power2.out', immediateRender: false }, 'power+=0.05');
+
+        // Thrusters ignite and idle until take-off.
+        tl.addLabel('ignite', 'power+=0.15')
+          .fromTo(q('.burst'), { opacity: 1, scale: 0.6 }, { opacity: 0, scale: 4.5, duration: 0.5, ease: 'power2.out', immediateRender: false }, 'ignite')
+          .to(flames, { opacity: 0.85, scaleY: 0.5, duration: 0.3, ease: 'power2.out' }, 'ignite')
+          .to(floor, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 'ignite')
+          .call(function () {
+            idle = gsap.to(flames, { scaleY: 0.62, duration: 0.09, ease: 'none', repeat: -1, yoyo: true });
+          }, null, 'ignite+=0.3');
+
+        // A short beat with the thrusters lit, then one take-off once the page is ready.
+        var holdReached = false;
+        var pageReady = false;
+        tl.addPause('ignite+=0.7', function () { holdReached = true; maybeLaunch(); });
+        ready.then(function () { pageReady = true; maybeLaunch(); });
+        setTimeout(function () { pageReady = true; holdReached = true; maybeLaunch(); }, 10000);
+
+        var launched = false;
+        function maybeLaunch() {
+          if (launched || !holdReached || !pageReady) return;
+          launched = true;
+          if (idle) idle.kill();
+
+          // Full-power flicker runs on its own: an endless tween inside the timeline would stop it ever completing.
+          var roar = gsap.fromTo(flames, { scaleY: 1.05 }, { scaleY: 1.3, duration: 0.07, ease: 'none', repeat: -1, yoyo: true, paused: true });
+          gsap.timeline({ onComplete: function () { roar.kill(); finish(); } })
+            .to(text, { opacity: 0, duration: 0.3 }, 0)
+            .to([light, floor], { opacity: 0, duration: 0.6, ease: 'power2.in' }, 0.1)
+            .to(q('.arm-l'), { rotation: 24, svgOrigin: '56 100', duration: 0.45, ease: 'power2.out' }, 0)
+            .to(q('.arm-r'), { rotation: -24, svgOrigin: '144 100', duration: 0.45, ease: 'power2.out' }, 0)
+            .to(q('.head'), { y: -3, duration: 0.35, ease: 'power2.out' }, 0)
+            .to(q('.eye'), { y: -6, duration: 0.35, ease: 'power2.out' }, 0)
+            .to(flames, { opacity: 1, scaleY: 1.3, duration: 0.25, ease: 'power2.out', onComplete: function () { roar.play(); } }, 0)
+            .to(figure, { y: -window.innerHeight * 1.3, scale: 0.7, duration: 1.1, ease: 'power3.in', force3D: true }, 0.05)
+            .to(splash.querySelector('.splash-bg'), { yPercent: -100, duration: 0.95, ease: 'power3.in', force3D: true }, 0.25);
+        }
+      })();
+    </script>
     <script
       type="text/javascript"
       src="https://assets.calendly.com/assets/external/widget.js"

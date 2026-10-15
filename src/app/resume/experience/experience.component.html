@@ -1,74 +1,118 @@
 <section id="experience" class="experience-page py-5">
   <div class="container">
-    <div class="experience-hero">
-      <span class="experience-kicker">My journey</span>
-      <h1>{{ full ? 'Every chapter so far' : '10+ years, one story' }}</h1>
-      <p *ngIf="!full">From branch workflows and HRIS to IP management and legacy rebuilds.</p>
+    <div class="section-header">
+      <span class="section-kicker">My journey</span>
+      <h2 class="section-title">{{ full ? 'Every chapter so far' : '11+ years, one story' }}</h2>
+      <p class="section-subtitle" *ngIf="full">Every role, what I built there, and the stack I worked with.</p>
     </div>
 
-    <!-- Home: carousel, oldest to newest; a card opens its chapter below -->
+    <!-- Home: a winding road of stops, oldest to newest, with the current stop's story below -->
     <ng-container *ngIf="!full; else chapterTimeline">
-      <div class="carousel-controls">
-        <span class="carousel-hint">Click a chapter to read more</span>
-        <button type="button" class="carousel-btn" aria-label="Previous roles" (click)="scrollJourney(-1)">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button type="button" class="carousel-btn" aria-label="Next roles" (click)="scrollJourney(1)">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
+      <div class="road-wrap">
+        <div class="road-scroll" #road>
+          <div class="road">
+            <svg class="road-svg" [attr.viewBox]="'0 0 ' + roadWidth + ' ' + roadHeight" preserveAspectRatio="none" aria-hidden="true">
+              <path class="road-base" [attr.d]="roadPath" />
+              <path class="road-detour" *ngFor="let detour of detours" [attr.d]="detour.path" />
+              <path class="road-detour-progress" *ngFor="let detour of detours" [attr.d]="detour.path" pathLength="1" />
+              <path class="road-progress" #progressPath [attr.d]="roadPath" pathLength="1" />
+            </svg>
 
-      <div class="carousel" (mouseenter)="paused = true" (mouseleave)="paused = false"
-        (focusin)="paused = true" (focusout)="paused = false">
-        <ol class="carousel-track" #track>
-          <li *ngFor="let stop of journey; let i = index">
-            <button type="button" class="carousel-card" [style.--accent]="stop.accent"
-              [class.carousel-card-active]="i === selected" [attr.aria-expanded]="i === selected"
-              (click)="toggle(i)">
-              <span class="card-cover">
-                <span class="card-pattern" aria-hidden="true"></span>
-                <span class="card-badges">
-                  <span class="card-chapter">{{ stop.label }}</span>
-                  <span class="card-now" *ngIf="!stop.exp.end">Now</span>
-                  <span class="card-icon" aria-hidden="true"><i [class]="stop.exp.icon"></i></span>
-                </span>
-                <span class="carousel-company">{{ stop.exp.short }}</span>
-                <span class="carousel-role">{{ stop.exp.position }}</span>
-              </span>
-              <span class="card-body">
-                <span class="carousel-story">{{ stop.exp.story }}</span>
-                <span class="card-skills">
-                  <span *ngFor="let skill of stop.exp.skills.slice(0, 3)">{{ skill }}</span>
-                </span>
-                <span class="card-footer">
-                  <span class="card-years">{{ stop.year }} – {{ stop.endYear }}</span>
-                  <span class="card-cta">{{ i === selected ? 'Close' : 'Read chapter' }} <i class="fas fa-arrow-right"></i></span>
-                </span>
+            <button type="button" class="road-stop" *ngFor="let stop of journey; let i = index"
+              [style.--accent]="stop.accent"
+              [style.left.%]="stopPoints[i].x / roadWidth * 100"
+              [style.top.%]="stopPoints[i].y / roadHeight * 100"
+              [class.road-stop-below]="i % 2 === 1"
+              [class.road-stop-active]="i === selected && !side"
+              [class.road-stop-passed]="i < selected"
+              [class.road-stop-next]="autoplaying && !side && i === nextIndex"
+              [attr.aria-current]="i === selected && !side ? 'step' : null"
+              [attr.aria-label]="'Jump to ' + stop.exp.short + ', ' + stop.year"
+              (click)="select(i)">
+              <span class="road-dot"><i [class]="stop.exp.icon"></i></span>
+              <span class="road-label">
+                <span class="road-year">{{ stop.year }}</span>
+                <span class="road-company">{{ stop.exp.short }}</span>
+                <span class="road-finish" *ngIf="i === journey.length - 1"><i class="fas fa-flag-checkered"></i> Finish line</span>
               </span>
             </button>
-          </li>
-        </ol>
-      </div>
 
-      <article class="chapter-panel" *ngIf="current as open" [style.--accent]="open.accent" aria-live="polite">
-        <button type="button" class="chapter-panel-close" aria-label="Close chapter" (click)="toggle(selected!)">
-          <i class="fas fa-times"></i>
-        </button>
-        <span class="chapter-panel-label">{{ open.label }} · {{ open.exp.industry }} · {{ open.exp.date }}</span>
-        <h2>{{ open.exp.position }} <span>· {{ open.exp.company }}</span></h2>
-        <ul>
-          <li *ngFor="let highlight of open.exp.highlights">{{ highlight }}</li>
-        </ul>
-        <div class="chapter-panel-skills">
-          <span *ngFor="let skill of open.exp.skills">{{ skill }}</span>
+            <!-- The road splits where it enters the checkpoint (left), wraps over and under it,
+                 and meets again on the side facing the next stop (right), where it carries on. -->
+            <svg class="road-ring" #ring *ngIf="autoplaying && !side" viewBox="0 0 60 60" aria-hidden="true"
+              [style.--accent]="current.accent"
+              [style.left.%]="stopPoints[selected].x / roadWidth * 100"
+              [style.top.%]="stopPoints[selected].y / roadHeight * 100">
+              <circle class="road-ring-track" cx="30" cy="30" r="28" />
+              <path class="road-ring-fill" d="M 2 30 A 28 28 0 0 1 58 30" pathLength="1" />
+              <path class="road-ring-fill" d="M 2 30 A 28 28 0 0 0 58 30" pathLength="1" />
+            </svg>
+
+            <!-- Tiny robots at the head of the lit road and of the parallel track; positioned every frame by drawProgress(). -->
+            <div class="road-robot" #robot *ngIf="autoplaying" aria-hidden="true">
+              <svg viewBox="0 0 44 22">
+                <path class="road-robot-flame" d="M12 8 Q0 11 12 14 Z" />
+                <rect x="12" y="7" width="17" height="8" rx="3" fill="#ffb547" stroke="#0b1530" stroke-width="1.2" />
+                <rect x="17" y="13" width="9" height="4" rx="2" fill="#3a4d78" stroke="#0b1530" stroke-width="1" />
+                <circle cx="34" cy="11" r="6" fill="#ffb547" stroke="#0b1530" stroke-width="1.2" />
+                <rect x="34" y="9" width="5" height="2.6" rx="1.2" fill="#00cba9" />
+              </svg>
+            </div>
+            <div class="road-robot road-robot-parallel" #parallelRobot *ngIf="autoplaying && detours.length" aria-hidden="true">
+              <svg viewBox="0 0 44 22">
+                <path class="road-robot-flame" d="M12 8 Q0 11 12 14 Z" />
+                <rect x="12" y="7" width="17" height="8" rx="3" fill="#ffb547" stroke="#0b1530" stroke-width="1.2" />
+                <rect x="17" y="13" width="9" height="4" rx="2" fill="#3a4d78" stroke="#0b1530" stroke-width="1" />
+                <circle cx="34" cy="11" r="6" fill="#ffb547" stroke="#0b1530" stroke-width="1.2" />
+                <rect x="34" y="9" width="5" height="2.6" rx="1.2" fill="#00cba9" />
+              </svg>
+            </div>
+
+            <button type="button" class="road-stop road-stop-below road-stop-side" *ngFor="let detour of detours"
+              [style.--accent]="detour.quest.accent"
+              [style.left.%]="detour.x / roadWidth * 100"
+              [style.top.%]="detour.y / roadHeight * 100"
+              [class.road-stop-active]="detour.quest === side"
+              [attr.aria-pressed]="detour.quest === side"
+              (click)="selectSide(detour.quest)">
+              <span class="road-dot"><i [class]="detour.quest.exp.icon"></i></span>
+              <span class="road-label">
+                <span class="road-year">Parallel track · {{ detour.quest.year }} – {{ detour.quest.endYear }}</span>
+                <span class="road-company">{{ detour.quest.exp.short }}</span>
+              </span>
+            </button>
+          </div>
         </div>
-      </article>
 
-      <div class="summary-actions">
-        <a routerLink="/experience" class="view-all-link">
-          View all experiences <i class="fas fa-arrow-right"></i>
-        </a>
+        <!-- The story sits right under the road, so the animation and the details are on screen together. -->
+        <article class="story" [style.--accent]="current.accent" aria-live="polite">
+          <div class="story-main">
+            <span class="story-chapter">{{ current.label ? current.label + ' · ' : '' }}{{ current.exp.industry }} · {{ current.year }} – {{ current.endYear }}</span>
+            <p class="story-quote">“{{ current.exp.story }}”</p>
+            <p class="story-byline">{{ current.exp.position }} · {{ current.exp.company }}</p>
+            <div class="story-nav">
+              <button type="button" aria-label="Previous chapter" (click)="step(-1)" [disabled]="!side && selected === 0">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+              <button type="button" aria-label="Next chapter" (click)="step(1)" [disabled]="!side && selected === journey.length - 1">
+                <i class="fas fa-arrow-right"></i>
+              </button>
+              <a routerLink="/experience" class="story-all">View all experiences <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="story-details">
+            <h3>What I built</h3>
+            <ul>
+              <li *ngFor="let highlight of current.exp.highlights">{{ highlight }}</li>
+            </ul>
+            <div class="story-skills">
+              <span *ngFor="let skill of current.exp.skills">{{ skill }}</span>
+            </div>
+          </div>
+        </article>
       </div>
+
     </ng-container>
 
     <!-- Full page: vertical chapters, newest first -->
@@ -80,7 +124,7 @@
 
             <article class="chapter-card">
               <div class="chapter-art" aria-hidden="true"><i [class]="chapter.exp.icon"></i></div>
-              <span class="chapter-label">{{ chapter.label }} · {{ chapter.exp.industry }}</span>
+              <span class="chapter-label">{{ chapter.label ? chapter.label + ' · ' : '' }}{{ chapter.exp.industry }}</span>
               <h2>{{ chapter.exp.position }}</h2>
               <div class="chapter-meta">
                 <a [href]="chapter.exp.companyWebsite" target="_blank" rel="noopener noreferrer"

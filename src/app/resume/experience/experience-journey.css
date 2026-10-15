@@ -1,0 +1,455 @@
+/* ---------- Home: winding road + story ---------- */
+
+.road-wrap {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.road-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.road-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.road {
+  position: relative;
+  min-width: 760px;
+  height: 300px;
+}
+
+.road-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.road-base,
+.road-progress {
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* Only the dotted base keeps a fixed width; on the progress line Chrome would measure the dash
+   in screen pixels and stop short of each stop on the stretched road. */
+.road-base {
+  vector-effect: non-scaling-stroke;
+}
+
+.road-base {
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-dasharray: 2 7;
+  stroke-width: 3;
+}
+
+/* Lights up the road travelled so far. The gap is longer than the road so a second dash never shows. */
+.road-progress {
+  stroke: #ffb547;
+  stroke-dasharray: 1 2;
+  stroke-width: 3;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 6px rgba(255, 181, 71, 0.7));
+}
+
+.road-stop {
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  transform: translate(-50%, calc(-100% + 1.1rem));
+  cursor: pointer;
+}
+
+.road-stop-below {
+  flex-direction: column;
+  transform: translate(-50%, -1.1rem);
+}
+
+.road-dot {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: #101d3e;
+  color: #7f93a6;
+  font-size: 0.8rem;
+  transition: all 0.35s ease;
+}
+
+/* Checkpoints are clickable: lift them on hover so that is obvious. */
+.road-stop:hover .road-dot {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.road-stop:hover .road-company {
+  color: #ffffff;
+}
+
+.road-stop:focus-visible {
+  outline: none;
+}
+
+.road-stop:focus-visible .road-dot {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.road-stop:hover .road-dot,
+.road-stop-passed .road-dot {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Checkpoint ring: the road wraps around the current stop before it moves on. Sized to hug the active dot. */
+.road-ring {
+  position: absolute;
+  width: 3.4rem;
+  height: 3.4rem;
+  overflow: visible;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.road-ring circle,
+.road-ring path {
+  fill: none;
+  stroke-width: 3.5;
+}
+
+.road-ring-track {
+  stroke: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* Same orange as the road, so the ring reads as the road itself. */
+.road-ring-fill {
+  stroke: #ffb547;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 181, 71, 0.7));
+}
+
+.road-finish {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  color: #d5dde3;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* The parallel track lights up as its robot flies it. */
+.road-detour-progress {
+  fill: none;
+  stroke: #ffb547;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 6px rgba(255, 181, 71, 0.7));
+}
+
+.road-stop-side-passed .road-dot {
+  border-style: solid;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* Tiny robot flying at the head of the lit road. */
+.road-robot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 42px;
+  height: 21px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(255, 181, 71, 0.55));
+  will-change: transform;
+}
+
+.road-robot-parallel {
+  width: 36px;
+  height: 18px;
+}
+
+.road-robot svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.road-robot-flame {
+  fill: #7ff5e1;
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: robot-flame 0.08s linear infinite alternate;
+}
+
+@keyframes robot-flame {
+  from {
+    transform: scaleX(0.7);
+  }
+  to {
+    transform: scaleX(1.25);
+  }
+}
+
+/* The stop the road is heading to next. */
+.road-stop-next .road-dot {
+  border-color: var(--accent);
+  color: var(--accent);
+  animation: next-pulse 1.6s ease-out infinite;
+}
+
+@keyframes next-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+
+.road-stop-active .road-dot {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #101d3e;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent), 0 0 24px var(--accent);
+  transform: scale(1.2);
+}
+
+.road-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.road-year {
+  color: #7f93a6;
+  font-family: Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.road-company {
+  color: #a9bac9;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.road-stop-active .road-year {
+  color: var(--accent);
+}
+
+.road-stop-active .road-company {
+  color: #ffffff;
+}
+
+/* Side projects: a dashed detour that leaves the road and rejoins it. */
+.road-detour {
+  fill: none;
+  stroke: rgba(255, 181, 71, 0.55);
+  stroke-dasharray: 6 6;
+  stroke-linecap: round;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.road-stop-side .road-dot {
+  border-style: dashed;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.road-stop-side .road-year {
+  color: var(--accent);
+}
+
+.road-stop-side.road-stop-active .road-dot {
+  border-style: solid;
+  color: #101d3e;
+}
+
+/* The story for the current stop: summary on the left, what I built on the right. */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  min-height: 14rem;
+  margin-top: 0.75rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid var(--accent);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.story-chapter {
+  color: var(--accent);
+  font-family: Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.story-quote {
+  margin: 0.6rem 0 0;
+  color: #ffffff;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+  animation: story-in 0.5s ease;
+}
+
+@keyframes story-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.story-byline {
+  margin: 0.6rem 0 0;
+  color: #8fa2b4;
+  font-size: 0.9rem;
+}
+
+.story-details {
+  animation: story-in 0.5s ease;
+}
+
+.story-details h3 {
+  margin: 0 0 0.6rem;
+  color: var(--accent);
+  font-family: Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.story-details ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #c7d4df;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.story-details li::marker {
+  color: var(--accent);
+}
+
+.story-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+
+.story-skills span {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: #a9bac9;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.story-nav {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+.story-nav button {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid rgba(255, 181, 71, 0.45);
+  border-radius: 50%;
+  background: none;
+  color: #ffb547;
+  transition: background 0.25s ease;
+}
+
+.story-nav button:hover:not(:disabled) {
+  background: rgba(255, 181, 71, 0.15);
+}
+
+.story-nav button:disabled {
+  opacity: 0.3;
+}
+
+.story-all {
+  margin-left: auto;
+  color: #ffb547;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.story-all:hover {
+  color: #ffffff;
+}
+
+/* Short laptop screens: a flatter road keeps the whole journey and its story on one screen. */
+@media (max-height: 820px) {
+  .road {
+    height: 250px;
+  }
+}
+
+/* Very short screens (e.g. 1280x720): also tighten the space above the road. */
+@media (max-height: 760px) {
+  .experience-page {
+    /* Overrides Bootstrap's py-5 utility, which is !important. */
+    padding-top: 1.5rem !important;
+  }
+
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .story {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .road-stop-next .road-dot,
+  .story-quote,
+  .story-details {
+    transition: none;
+    animation: none;
+  }
+}

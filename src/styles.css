@@ -99,3 +99,34 @@ section.contact-section > * {
 .btn-modal-apply{flex:1;padding:.875rem 1.5rem;background:linear-gradient(135deg,#ffb547,#e08a12);border:none;border-radius:8px;color:#000;font-weight:700;cursor:pointer;transition:all .3s ease}
 .btn-modal-apply:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(255, 181, 71,.4)}
 @media (max-width:768px){.filters-modal{width:95%;max-height:90vh}.modal-body,.modal-footer,.modal-header{padding:1rem}}
+
+/* Shared section header: kicker, title, optional subtitle. */
+.section-header {
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.section-kicker {
+  color: #ffb547;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 0.5rem 0 0;
+  color: #ffffff;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.section-subtitle {
+  margin: 0.75rem auto 0;
+  color: #a9bac9;
+  font-size: 1rem;
+  line-height: 1.6;
+}

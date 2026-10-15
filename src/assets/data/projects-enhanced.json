@@ -68,7 +68,8 @@
       "Batch processing of multiple DBF files",
       "Stop and resume long-running migrations",
       "Shows migration progress and errors"
-    ]
+    ],
+    "role": "Designer & Developer"
   },
   {
     "id": "semantic-search-api",

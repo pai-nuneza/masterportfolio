@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Project } from '../../models/project.model';
 import projectsData from '../../../assets/data/projects-enhanced.json';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css'],
+  styleUrls: ['./projects.component.css', './project-modal.css'],
 })
 export class ProjectsComponent implements OnInit {
   allProjects: Project[] = [];
@@ -36,8 +36,18 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = project;
   }
 
+  @HostListener('document:keydown.escape')
   closeProject(): void {
     this.selectedProject = undefined;
+  }
+
+  statusLabel(status: string): string {
+    const labels: Record<string, string> = { released: 'Released', 'mvp ready': 'MVP ready', 'in progress': 'In progress', live: 'Live' };
+    return labels[status?.toLowerCase()] ?? status;
+  }
+
+  highlightsOf(project: Project): string[] {
+    return project.projectHighlights?.length ? project.projectHighlights : project.highlights ?? [];
   }
 
   visibleTechnologies(project: Project): string[] {

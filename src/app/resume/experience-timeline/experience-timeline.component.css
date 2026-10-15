@@ -1,28 +1,6 @@
 .timeline-section {
   padding: 1rem 0 4rem;
 }
-
-.timeline-header {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.timeline-kicker {
-  color: #ffb547;
-  font-family: Consolas, monospace;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.timeline-header h2 {
-  margin: 0.5rem 0 0;
-  color: #ffffff;
-  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
-  font-weight: 800;
-}
-
 .timeline-hint {
   display: none;
   margin: 0 0 0.75rem;

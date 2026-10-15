@@ -152,42 +152,6 @@
   font-size: 1.125rem;
   line-height: 1.7;
 }
-
-.hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2.5rem;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  color: #ffb547;
-  font-size: 2rem;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 0.25rem;
-}
-
-.stat-label {
-  color: #888888;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
@@ -241,41 +205,6 @@
 .btn-secondary-custom:hover {
   color: #ffffff;
 }
-
-.hero-transform {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2.25rem;
-}
-
-.transform-chip {
-  padding: 0.55rem 1rem;
-  border-radius: 8px;
-  font-family: "Consolas", "Courier New", ui-monospace, monospace;
-  font-size: 0.9rem;
-}
-
-.transform-legacy {
-  border: 1px dashed rgba(255, 181, 71, 0.55);
-  background: rgba(255, 181, 71, 0.08);
-  color: #ffcb7d;
-}
-
-.transform-modern {
-  border: 1px solid rgba(0, 203, 169, 0.6);
-  background: rgba(0, 203, 169, 0.12);
-  color: #7ff5e1;
-  box-shadow: 0 0 24px rgba(0, 203, 169, 0.2);
-}
-
-.transform-arrow {
-  color: #00cba9;
-  font-size: 1.25rem;
-}
-
 .hero-stack {
   display: flex;
   flex-wrap: wrap;
@@ -304,28 +233,6 @@
 .modernization-section {
   padding: 4rem 0;
 }
-
-.modernization-header {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.modernization-kicker {
-  color: #ffb547;
-  font-family: "Consolas", "Courier New", ui-monospace, monospace;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.modernization-header h2 {
-  margin: 0.5rem 0 0;
-  color: #ffffff;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 800;
-}
-
 .modernization-list {
   max-width: var(--content-max);
   margin: 0 auto;
@@ -405,10 +312,6 @@
 }
 
 @media (max-width: 576px) {
-  .transform-chip {
-    font-size: 0.8rem;
-  }
-
   .hero-content {
     padding: 1rem 0;
   }
@@ -421,23 +324,6 @@
   .hero-tagline {
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
-  }
-
-
-  .hero-stats {
-    gap: 1rem;
-  }
-
-  .stat-number {
-    font-size: 1.5rem;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-  }
-
-  .stat-divider {
-    height: 30px;
   }
 
   .hero-ctas {

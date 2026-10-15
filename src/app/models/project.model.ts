@@ -12,17 +12,17 @@ export interface Project {
   imgLink: string;
   featured: boolean;
   isLargeCard?: boolean;
-  status: 'released' | 'in-progress' | 'planned';
+  status: string;
   projectType?: 'Professional' | 'Personal';
   githubLink?: string;
   liveLink?: string | null;
-  testCredentials?: {
-    username: string;
-    password: string;
-    otp?: string;
-    instructions?: string;
-  };
   isPrivate?: boolean;
   clientName?: string;
   coreFeatures?: string[];
+  /** What I personally did on the project; shown as "What I did". */
+  projectHighlights?: string[];
+  /** Notable technical points; shown when there are no project highlights. */
+  highlights?: string[];
+  /** My role, e.g. "Lead Developer / Technical Lead". */
+  role?: string;
 }

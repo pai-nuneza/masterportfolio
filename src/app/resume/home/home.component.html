@@ -13,33 +13,9 @@
           </h1>
 
           <p class="hero-tagline" data-aos="fade-right" data-aos-delay="250">
-            10+ years across HRIS, hotel booking, and IP management, with 3 years rebuilding FoxPro apps for the web.
+            11+ years building web apps. For the last 3, I've rebuilt FoxPro systems for the web,
+            one now serving 200K+ members.
           </p>
-
-          <div class="hero-transform" data-aos="fade-right" data-aos-delay="300" aria-label="Desktop to web">
-            <span class="transform-chip transform-legacy">C:\&gt; USE members.dbf</span>
-            <span class="transform-arrow" aria-hidden="true"><i class="fas fa-long-arrow-alt-right"></i></span>
-            <span class="transform-chip transform-modern">https://app.modern.web</span>
-          </div>
-
-          <div class="hero-stats" data-aos="fade-right" data-aos-delay="350">
-            <div class="stat-item">
-              <div class="stat-number">10+</div>
-              <div class="stat-label">Years Building Software</div>
-            </div>
-            <div class="stat-divider"></div>
-
-            <div class="stat-item">
-              <div class="stat-number">3 Yrs</div>
-              <div class="stat-label">FoxPro → Web</div>
-            </div>
-            <div class="stat-divider"></div>
-
-            <div class="stat-item">
-              <div class="stat-number">200K+</div>
-              <div class="stat-label">Members on a Rebuilt System</div>
-            </div>
-          </div>
 
           <div class="hero-ctas" data-aos="fade-right" data-aos-delay="350">
             <a class="btn-primary-custom" href="#works">
@@ -66,9 +42,10 @@
 
 <section id="modernization" class="modernization-section">
   <div class="container">
-    <div class="modernization-header" data-aos="fade-up">
-      <span class="modernization-kicker">Before → After</span>
-      <h2>Old systems, rebuilt for today.</h2>
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-kicker">Before → After</span>
+      <h2 class="section-title">Old systems, rebuilt for today.</h2>
+      <p class="section-subtitle">What each system was, and what it became.</p>
     </div>
 
     <ul class="modernization-list" data-aos="fade-up">
@@ -82,7 +59,7 @@
   </div>
 </section>
 
-@defer (on viewport) {
+@defer (on viewport; prefetch on idle) {
   <app-projects></app-projects>
 } @loading (after 150ms; minimum 600ms) {
   <div class="deferred-loading" role="status" aria-label="Loading projects">
@@ -93,7 +70,7 @@
   <div id="works" class="deferred-section deferred-section-projects" aria-hidden="true"></div>
 }
 
-@defer (on viewport) {
+@defer (on viewport; prefetch on idle) {
   <app-about></app-about>
 } @loading (after 150ms; minimum 600ms) {
   <div class="deferred-loading" role="status" aria-label="Loading about section">
@@ -104,7 +81,7 @@
   <div id="about" class="deferred-section deferred-section-about" aria-hidden="true"></div>
 }
 
-@defer (on viewport) {
+@defer (on viewport; prefetch on idle) {
   <app-experience></app-experience>
 } @loading (after 150ms; minimum 600ms) {
   <div class="deferred-loading" role="status" aria-label="Loading experience">
@@ -115,7 +92,7 @@
   <div id="experience" class="deferred-section deferred-section-experience" aria-hidden="true"></div>
 }
 
-@defer (on viewport) {
+@defer (on viewport; prefetch on idle) {
   <app-contact-me></app-contact-me>
 } @loading (after 150ms; minimum 600ms) {
   <div class="deferred-loading" role="status" aria-label="Loading contact section">

@@ -2,35 +2,6 @@
   background: linear-gradient(180deg, rgba(255, 181, 71, 0.03), rgba(255, 255, 255, 0.012));
   border-top: 1px solid rgba(255, 181, 71, 0.12);
 }
-
-.contact-intro {
-  margin: 0 auto 3rem;
-  max-width: 720px;
-  text-align: center;
-}
-
-.contact-intro h1 {
-  color: #ffffff;
-  font-size: clamp(2rem, 3.7vw, 3rem);
-  font-weight: 850;
-  line-height: 1.1;
-  margin: 0;
-}
-
-.contact-intro h1 span {
-  background: linear-gradient(135deg, #ffb547 0%, #ffd38a 45%, #ffffff 120%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.contact-intro p {
-  color: #b9d6d2;
-  font-size: 0.98rem;
-  line-height: 1.55;
-  margin: 0.75rem auto 0;
-}
-
 .contact-layout {
   display: grid;
   grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.25fr);
@@ -329,10 +300,6 @@
 }
 
 @media (max-width: 640px) {
-  .contact-intro {
-    margin-bottom: 2.2rem;
-  }
-
   .form-row {
     grid-template-columns: 1fr;
   }

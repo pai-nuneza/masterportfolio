@@ -2,7 +2,7 @@
 
 **I bring legacy systems back to life.**
 
-The personal portfolio of Ramer Pailou "Pai" Nuñeza, a Software & Product Engineer with 10+ years
+The personal portfolio of Ramer Pailou "Pai" Nuñeza, a Software & Product Engineer with 11+ years
 across HRIS, hotel booking, IP management, and FoxPro-to-web rebuilds.
 
 **Live site:** [painuneza.netlify.app](https://painuneza.netlify.app/)
@@ -11,11 +11,11 @@ across HRIS, hotel booking, IP management, and FoxPro-to-web rebuilds.
 
 | Section | What it shows |
 | --- | --- |
-| Hero | The story in one line, key stats, and the main stack (C#/.NET, React, Angular, Vue, SQL Server, Docker, Claude AI) |
+| Hero | The story in one line and the main stack (C#/.NET, React, Angular, Vue, SQL Server, Docker, Claude AI) |
 | Before → After | Legacy systems and what they became, e.g. a FoxPro desktop app rebuilt as a web platform for 200K+ members |
-| Selected Works | Projects, legacy rebuilds first, each with a details popup |
+| Selected Works | Legacy rebuilds, client work, and personal projects, each with a details popup |
 | About | Who I am and how I work |
-| My Journey | A carousel of career chapters; click one to read what I built there |
+| My Journey | A winding road of career stops, with parallel work (like the FoxPro rebuild) branching off it; each stop tells its story and opens the full chapter |
 | `/experience` | Every role as a vertical timeline, plus a chart of roles and the tech that came with them, including the AI era |
 | Contact | A message form (Netlify Forms) and direct email |
 
@@ -45,8 +45,8 @@ Most content lives in data files, so you rarely need to touch templates.
 | To change | Edit |
 | --- | --- |
 | Roles, dates, stories, icons, skills | [`src/app/resume/experience/experience.data.ts`](src/app/resume/experience/experience.data.ts) |
-| Projects | [`src/assets/data/projects-enhanced.json`](src/assets/data/projects-enhanced.json) |
-| Hero text, stats, stack, Before → After rows | [`src/app/resume/home/`](src/app/resume/home/) |
+| Projects (set `"isPersonal": true` to label a personal project) | [`src/assets/data/projects-enhanced.json`](src/assets/data/projects-enhanced.json) |
+| Hero text, stack, Before → After rows | [`src/app/resume/home/`](src/app/resume/home/) |
 | Tech and AI tools on the career timeline | [`experience-timeline.component.ts`](src/app/resume/experience-timeline/experience-timeline.component.ts) |
 | Page width for every section | `--content-max` in [`src/styles.css`](src/styles.css) |
 
