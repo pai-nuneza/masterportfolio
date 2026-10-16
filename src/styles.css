@@ -272,3 +272,12 @@ section.contact-section > * {
     animation: none;
   }
 }
+
+/* Phones: a smaller planet tucked in the corner so it doesn't sit behind the hero text. */
+@media (max-width: 576px) {
+  .legacy-planet {
+    top: 11vh;
+    right: 3vw;
+    width: 88px;
+  }
+}

@@ -271,11 +271,17 @@
     margin-bottom: 2rem;
   }
 
+  .hero-ctas {
+    gap: 0.65rem;
+  }
+
   .btn-primary-custom,
   .btn-secondary-custom {
+    flex: 1 1 auto;
     width: auto;
     max-width: 100%;
-    padding: 0.55rem 0.7rem;
-    font-size: 0.85rem;
+    min-height: 44px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.9rem;
   }
 }

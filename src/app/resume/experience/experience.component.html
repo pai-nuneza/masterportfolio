@@ -11,6 +11,7 @@
       <div class="road-wrap"
         (mouseenter)="paused = true" (mouseleave)="paused = false"
         (focusin)="paused = true" (focusout)="paused = false">
+        <p class="road-hint">Swipe along the road <i class="fas fa-arrow-right"></i></p>
         <div class="road-scroll" #road>
           <div class="road">
             <svg class="road-svg" [attr.viewBox]="'0 0 ' + roadWidth + ' ' + roadHeight" preserveAspectRatio="none" aria-hidden="true">

@@ -1,5 +1,5 @@
 <!-- The repair robot, docked as a hire assistant once the planet is done. -->
-<div class="ha" [class.ha-docked]="docked()" [class.ha-large]="large">
+<div class="ha" [class.ha-docked]="docked()" [class.ha-large]="large" [class.ha-open]="open">
   <section *ngIf="open" id="ha-panel" class="ha-panel" role="dialog" aria-label="Hire Pai assistant">
     <header class="ha-head">
       <span><span class="ha-dot"></span>Pai's assistant</span>
@@ -8,7 +8,7 @@
           aria-label="Compare your time with Pai's" title="Compare times" aria-controls="ha-planner">
           <i class="far fa-clock"></i>
         </button>
-        <button type="button" class="ha-close" (click)="large = !large" [attr.aria-label]="large ? 'Make chat smaller' : 'Make chat bigger'"
+        <button type="button" class="ha-close ha-resize" (click)="large = !large" [attr.aria-label]="large ? 'Make chat smaller' : 'Make chat bigger'"
           [title]="large ? 'Smaller' : 'Bigger'">
           <i class="fas" [class.fa-compress-alt]="large" [class.fa-expand-alt]="!large"></i>
         </button>

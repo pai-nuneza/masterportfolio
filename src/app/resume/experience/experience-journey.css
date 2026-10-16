@@ -14,6 +14,26 @@
   display: none;
 }
 
+/* The scrollbar is hidden, so say the road scrolls once it is wider than the screen (below ~800px). */
+.road-hint {
+  display: none;
+  margin: 0 0 0.25rem;
+  color: #7f93a6;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+@media (max-width: 799px) {
+  .road-hint {
+    display: block;
+  }
+
+  .road-scroll {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+  }
+}
+
 .road {
   position: relative;
   min-width: 760px;
@@ -427,6 +447,11 @@
     grid-template-columns: 1fr;
     gap: 1.25rem;
     padding: 1.25rem;
+  }
+
+  .story-nav button {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
 

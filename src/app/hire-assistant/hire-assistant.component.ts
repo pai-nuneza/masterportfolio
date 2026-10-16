@@ -117,7 +117,10 @@ export class HireAssistantComponent implements AfterViewInit, OnDestroy {
     if (!this.messages.length) {
       this.messages.push({ from: 'bot', text: GREETING });
     }
-    this.later(() => this.input?.nativeElement.focus(), 50);
+    // On touch screens focusing would pop the keyboard up over the greeting, so let them tap the input.
+    if (window.matchMedia('(hover: hover)').matches) {
+      this.later(() => this.input?.nativeElement.focus(), 50);
+    }
   }
 
   togglePlanner(): void {
