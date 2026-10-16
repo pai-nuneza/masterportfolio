@@ -141,21 +141,6 @@
   filter: drop-shadow(0 0 6px rgba(255, 181, 71, 0.7));
 }
 
-.road-finish {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.25rem;
-  padding: 0.1rem 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  color: #d5dde3;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
 /* The parallel track lights up as its robot flies it. */
 .road-detour-progress {
   fill: none;

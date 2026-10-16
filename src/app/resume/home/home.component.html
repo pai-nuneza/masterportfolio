@@ -40,25 +40,6 @@
   </div>
 </section>
 
-<section id="modernization" class="modernization-section">
-  <div class="container">
-    <div class="section-header" data-aos="fade-up">
-      <span class="section-kicker">Before → After</span>
-      <h2 class="section-title">Old systems, rebuilt for today.</h2>
-      <p class="section-subtitle">What each system was, and what it became.</p>
-    </div>
-
-    <ul class="modernization-list" data-aos="fade-up">
-      <li class="modernization-item" *ngFor="let item of modernizations">
-        <span class="modernization-before">{{ item.before }}</span>
-        <i class="fas fa-long-arrow-alt-right modernization-arrow" aria-hidden="true"></i>
-        <span class="modernization-after">{{ item.after }}</span>
-        <span class="modernization-meta">{{ item.meta }}</span>
-      </li>
-    </ul>
-  </div>
-</section>
-
 @defer (on viewport; prefetch on idle) {
   <app-projects></app-projects>
 } @loading (after 150ms; minimum 600ms) {

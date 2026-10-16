@@ -14,6 +14,7 @@ export interface Project {
   isLargeCard?: boolean;
   status: string;
   projectType?: 'Professional' | 'Personal';
+  isPersonal?: boolean;
   githubLink?: string;
   liveLink?: string | null;
   isPrivate?: boolean;

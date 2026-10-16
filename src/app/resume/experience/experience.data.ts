@@ -24,7 +24,7 @@ export interface Experience {
 export const EXPERIENCES: Experience[] = [
   {
     company: 'Civica (via Cloudstaff)',
-    story: 'Now modernizing a legacy regulatory system for a UK public-sector client.',
+    story: 'Now modernizing a legacy regulatory system for an Australian public-sector client.',
     icon: 'fas fa-landmark',
     industry: 'Public sector',
     short: 'Civica',
@@ -33,7 +33,7 @@ export const EXPERIENCES: Experience[] = [
     start: '2026-07',
     end: null,
     location: 'Remote',
-    description: 'Modernizing a legacy regulatory system for a UK public-sector client into a secure, maintainable web application.',
+    description: 'Modernizing a legacy regulatory system for an Australian public-sector client into a secure, maintainable web application.',
     highlights: [
       'Rebuild legacy workflows and business rules as modern web features while keeping existing processes and data intact.',
       'Work with an international team on delivery, code reviews, and releases.',

@@ -73,7 +73,7 @@
   },
   {
     "id": "semantic-search-api",
-    "title": "Semantic Search Web Api",
+    "title": "Semantic Search Web API",
     "text": "AI-Powered Search Engine with .NET 8",
     "description": "A .NET 8 Web API demonstrating semantic search using vector embeddings. Supports ML.NET TF-IDF (local, default) and ONNX Runtime for neural network models. Search using natural language - e.g., 'billionaire superhero' finds Iron Man. Converts text into 384-dimensional vectors and uses cosine similarity for ranking. Features configurable providers, customizable training data, auto-seeding with sample documents, diagnostic endpoints, and a Bootstrap frontend.",
     "buttonText": "View on GitHub",

@@ -1,0 +1,76 @@
+<!-- An old, cracked Earth reworked region by region by a tiny repair robot; styles live in styles.css. -->
+<svg class="legacy-planet" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="lp-old-sea" cx="35%" cy="30%">
+      <stop offset="0" stop-color="#7d7a72" />
+      <stop offset="0.55" stop-color="#46443f" />
+      <stop offset="1" stop-color="#1f1e1b" />
+    </radialGradient>
+    <radialGradient id="lp-sea" cx="35%" cy="30%">
+      <stop offset="0" stop-color="#6cc1ff" />
+      <stop offset="0.5" stop-color="#1f6fd1" />
+      <stop offset="1" stop-color="#0a2a5e" />
+    </radialGradient>
+    <radialGradient id="lp-shade" cx="35%" cy="30%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0" />
+      <stop offset="1" stop-color="#000" stop-opacity="0.55" />
+    </radialGradient>
+    <clipPath id="lp-body"><circle cx="100" cy="100" r="80" /></clipPath>
+    <clipPath *ngFor="let region of regions; let i = index" [attr.id]="'lp-region-' + i">
+      <polygon [attr.points]="region.outline" />
+    </clipPath>
+    <g id="lp-land">
+      <path d="M30 58 C44 44 66 42 76 52 C82 60 74 70 64 72 C56 76 54 86 46 88 C38 86 30 76 28 68 Z" />
+      <path d="M40 104 C52 100 62 108 64 120 C66 134 58 148 52 160 C48 152 44 140 40 128 C36 118 34 108 40 104 Z" />
+      <path d="M95 38 C110 30 140 34 158 48 C166 58 160 66 148 64 C138 70 128 62 118 66 C110 70 100 62 96 56 Z" />
+      <path d="M98 72 C112 68 128 74 132 88 C138 104 130 120 122 136 C116 150 108 152 104 140 C100 126 92 116 90 102 C86 90 88 78 98 72 Z" />
+      <path d="M146 128 C156 124 168 128 168 138 C166 146 154 148 146 144 C140 140 140 132 146 128 Z" />
+    </g>
+    <!-- Legacy Earth: dried-up seas, barren land and craters. -->
+    <g id="lp-dead">
+      <circle cx="100" cy="100" r="80" fill="url(#lp-old-sea)" />
+      <use href="#lp-land" class="lp-old-land" />
+      <g class="lp-craters">
+        <circle cx="62" cy="70" r="7" />
+        <circle cx="112" cy="104" r="6" />
+        <circle cx="140" cy="54" r="5" />
+        <circle cx="78" cy="146" r="6" />
+      </g>
+    </g>
+    <g id="lp-alive">
+      <circle cx="100" cy="100" r="80" fill="url(#lp-sea)" />
+      <use href="#lp-land" class="lp-land" />
+      <g class="lp-clouds">
+        <ellipse cx="70" cy="40" rx="22" ry="5" />
+        <ellipse cx="130" cy="92" rx="18" ry="4" />
+        <ellipse cx="60" cy="132" rx="16" ry="4" />
+        <ellipse cx="150" cy="150" rx="20" ry="4.5" />
+      </g>
+    </g>
+  </defs>
+
+  <g clip-path="url(#lp-body)">
+    <g *ngFor="let region of regions; let i = index" [attr.clip-path]="'url(#lp-region-' + i + ')'">
+      <use href="#lp-dead" />
+      <polygon class="lp-crack" [attr.points]="region.outline" />
+      <use #alive href="#lp-alive" opacity="0" />
+      <!-- The upgrade: city lights switch on once the region is back to life. -->
+      <g #lights class="lp-city" opacity="0">
+        <circle *ngFor="let light of region.lights" [attr.cx]="light.x" [attr.cy]="light.y" r="1.2" />
+      </g>
+      <circle #flash class="lp-region-flash" cx="100" cy="100" r="80" opacity="0" />
+    </g>
+  </g>
+  <circle cx="100" cy="100" r="80" fill="url(#lp-shade)" />
+
+  <!-- Weld lines along each region's cracks: hot while the torch passes, then cooling into a fading scar. -->
+  <path #seam *ngFor="let region of regions" class="lp-weld" [attr.d]="region.seam" pathLength="1" />
+
+  <!-- The tiny repair robot: faces where it flies and welds with the spark under its nose. -->
+  <g #bot class="lp-bot-wrap" transform="translate(-200 -200)">
+    <path class="lp-bot-flame" d="M-9 -1.5 Q-16 0 -9 1.5 Z" />
+    <rect class="lp-bot" x="-9" y="-3" width="10" height="6" rx="2" />
+    <circle class="lp-bot" cx="4" cy="0" r="3.6" />
+    <circle class="lp-spark" cx="-1" cy="8" r="2.4" />
+  </g>
+</svg>

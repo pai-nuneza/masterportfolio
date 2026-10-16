@@ -169,8 +169,7 @@
 }
 
 .work-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 0.5rem;
   margin-top: auto;
   padding-top: 0.85rem;
@@ -179,10 +178,13 @@
 .btn-demo,
 .btn-details {
   display: inline-flex;
+  flex: 1 1 0;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  min-height: 34px;
+  min-width: 0;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
   border-radius: 7px;
   font-size: 0.8rem;
   font-weight: 750;
@@ -220,14 +222,107 @@
   }
 
   .work-card {
-    flex-basis: 100%;
+    flex: 0 0 calc((100% - var(--works-gap)) / 2);
+    max-width: none;
   }
 
   .work-card-large .work-image-wrap {
     aspect-ratio: 16 / 9;
   }
 
+  .btn-demo,
+  .btn-details {
+    flex: 1;
+  }
+
+  .mobile-hide-on-phone {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .work-card {
+    display: grid;
+    flex: 0 0 100%;
+    grid-template-columns: 88px minmax(0, 1fr);
+    flex-direction: initial;
+    max-width: 540px;
+  }
+
+  .work-card-large::before {
+    display: none;
+  }
+
+  .work-image-wrap,
+  .work-card-large .work-image-wrap {
+    grid-column: 1;
+    grid-row: 1;
+    width: 88px;
+    height: 100%;
+    min-height: 145px;
+    aspect-ratio: auto;
+  }
+
+  .work-content {
+    grid-column: 2;
+    min-width: 0;
+    padding: 0.75rem;
+  }
+
+  .work-meta {
+    flex-wrap: wrap;
+    gap: 0.2rem 0.5rem;
+    font-size: 0.56rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .work-content h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .work-content p {
+    font-size: 0.7rem;
+    line-height: 1.35;
+    margin-bottom: 0.45rem;
+  }
+
+  .work-tech {
+    display: none;
+  }
+
   .work-actions {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    padding-top: 0.55rem;
+  }
+
+  .btn-demo,
+  .btn-details {
+    min-height: 36px;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.72rem;
+    gap: 0.25rem;
+  }
+}
+
+/* Too narrow for the side thumbnail: stack image above text. */
+@media (max-width: 360px) {
+  .work-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-image-wrap,
+  .work-card-large .work-image-wrap {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .work-content {
+    grid-column: 1;
+    grid-row: 2;
   }
 }

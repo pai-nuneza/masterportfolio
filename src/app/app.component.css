@@ -35,44 +35,67 @@
   opacity: 0.7;
 }
 
-.ambient-plane {
+.ambient-stars {
   position: absolute;
-  display: block;
-  border: 1px solid rgba(255, 181, 71, 0.12);
-  border-radius: 8px;
-  box-shadow: 0 0 32px rgba(255, 181, 71, 0.06);
-  opacity: 0.38;
+  inset: -50% 0 0;
+  animation: stars-drift 160s linear infinite;
 }
 
-.ambient-plane-one {
-  top: 14vh;
-  right: -10vw;
-  width: min(48vw, 680px);
-  height: min(34vw, 460px);
-  background: linear-gradient(135deg, rgba(255, 181, 71, 0.065), transparent 58%);
-  transform: rotateX(62deg) rotateZ(-12deg);
-}
-
-.ambient-plane-two {
-  bottom: -16vh;
-  left: -12vw;
-  width: min(46vw, 620px);
-  height: min(30vw, 390px);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 181, 71, 0.04) 42%, transparent 70%);
-  transform: rotateX(66deg) rotateZ(18deg);
-}
-
-.ambient-grid {
-  position: absolute;
-  inset: -12%;
-  display: block;
+.ambient-stars-far {
+  opacity: 0.35;
   background-image:
-    linear-gradient(rgba(255, 181, 71, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 181, 71, 0.045) 1px, transparent 1px);
-  background-size: 82px 82px;
-  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.58), transparent 68%);
-  opacity: 0.14;
-  transform: rotateX(66deg);
+    radial-gradient(circle at 12% 18%, #ffffff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 63% 42%, #cfe8ff 0 1px, transparent 1.5px);
+  background-size: 420px 380px, 560px 500px;
+}
+
+.ambient-stars-near {
+  animation:
+    stars-drift 90s linear infinite,
+    stars-twinkle 5s ease-in-out infinite alternate;
+  background-image:
+    radial-gradient(circle at 24% 33%, #ffffff 0 1.3px, transparent 2px),
+    radial-gradient(circle at 71% 12%, #7ff5e1 0 1.2px, transparent 2px);
+  background-size: 760px 680px, 920px 840px;
+}
+
+@keyframes stars-drift {
+  to {
+    transform: translateY(50%);
+  }
+}
+
+@keyframes stars-twinkle {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+/* Distant planets: lit from the top left, with the far side in shadow. */
+.ambient-planet {
+  position: absolute;
+  border-radius: 50%;
+  animation: planet-float 18s ease-in-out infinite alternate;
+}
+
+.ambient-planet-two {
+  bottom: 14vh;
+  left: 5vw;
+  width: clamp(36px, 5vw, 70px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 35% 30%, #b8fff3, #00cba9 45%, #06352e 80%);
+  box-shadow: 0 0 40px rgba(0, 203, 169, 0.25);
+  filter: brightness(0.5);
+  animation-duration: 24s;
+}
+
+@keyframes planet-float {
+  to {
+    transform: translateY(-24px);
+  }
 }
 
 .ambient-noise {
@@ -86,6 +109,13 @@
     radial-gradient(circle at 72% 36%, rgba(255, 181, 71, 0.6) 0 1px, transparent 1.35px),
     radial-gradient(circle at 43% 78%, rgba(255, 255, 255, 0.45) 0 1px, transparent 1.3px);
   background-size: 31px 29px, 43px 41px, 53px 47px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-stars,
+  .ambient-planet {
+    animation: none;
+  }
 }
 
 .main-nav {
@@ -135,7 +165,11 @@
 }
 
 .nav-menu ul {
+  display: flex;
   align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+  padding: 0;
 }
 
 .nav-menu a {
@@ -169,17 +203,46 @@
   transform: translateY(-1px);
 }
 
+.nav-toggle {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-toggle span {
+  width: 20px;
+  height: 2px;
+  margin: 4px auto;
+}
+
 @media (max-width: 1023px) {
+  .nav-container {
+    flex-wrap: wrap;
+  }
+
   .nav-menu {
     position: static;
-    transform: none;
+    display: none;
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+    transform: none;
+  }
+
+  .nav-menu.mobile-open {
+    display: block;
   }
 
   .nav-menu ul {
     flex-direction: column;
     gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: 0.35rem 0;
   }
 }
 

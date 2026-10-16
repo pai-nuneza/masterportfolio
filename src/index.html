@@ -75,9 +75,14 @@
       /* Light the suit throws on its surroundings once it powers on. */
       .splash-light {
         position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at 50% 44%, rgba(0, 203, 169, 0.3), rgba(0, 203, 169, 0.08) 22%, transparent 50%);
+        top: 60%;
+        left: 50%;
+        width: min(80vw, 450px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 203, 169, 0.32), rgba(0, 203, 169, 0.1) 35%, transparent 72%);
         opacity: 0;
+        transform: translate(-50%, -50%);
         pointer-events: none;
       }
 
@@ -93,6 +98,7 @@
 
       .splash-figure {
         position: relative;
+        top: 10vh;
         width: min(42vw, 190px);
         filter: brightness(0.7);
         will-change: transform;
@@ -101,13 +107,22 @@
       /* Thruster light pooling on the floor beneath him. */
       .splash-floor {
         position: absolute;
-        bottom: -6%;
+        bottom: -22%;
         left: 50%;
-        width: 180%;
-        height: 18%;
-        background: radial-gradient(ellipse at center, rgba(127, 245, 225, 0.45), transparent 70%);
+        width: 420%;
+        height: 50%;
+        background: radial-gradient(ellipse at center, rgba(127, 245, 225, 0.5), rgba(127, 245, 225, 0.16) 18%, rgba(0, 203, 169, 0.06) 45%, transparent 75%);
         opacity: 0;
         transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      /* Exhaust left behind at take-off. */
+      .splash-smoke {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(ellipse at center, rgba(190, 215, 225, 0.4), rgba(127, 245, 225, 0.12) 45%, transparent 72%);
+        filter: blur(10px);
         pointer-events: none;
       }
 
@@ -122,6 +137,10 @@
         fill: #00cba9;
         opacity: 0;
         filter: drop-shadow(0 0 4px #00cba9) drop-shadow(0 0 10px #00cba9);
+      }
+
+      .splash-figure .part {
+        filter: drop-shadow(0 0 2px rgba(127, 245, 225, 0.3));
       }
 
       .splash-figure .pulse,
@@ -139,6 +158,8 @@
       }
 
       .splash-text {
+        position: relative;
+        top: calc(10vh + 2.5rem);
         margin: 0;
         color: #ffb547;
         font-family: Consolas, "Courier New", monospace;
@@ -248,27 +269,19 @@
     </form>
     <script>
       // Splash timeline (GSAP). The person is the legacy system; the armour is the upgrade.
-      // It waits with the thrusters lit until the page is ready (assets loaded, fonts ready, Angular rendered),
-      // then takes off: arms out, looking up, accelerating out of view. Never blocks for more than 10 seconds; falls back to a fade without GSAP.
+      // It waits for Angular's navigation shell, then takes off. External fonts and lazy assets do not hold the intro.
       (function () {
         var splash = document.getElementById('splash');
         if (!splash) return;
         var root = document.documentElement;
         root.classList.add('splash-lock');
 
-        var ready = Promise.all([
-          new Promise(function (resolve) {
-            if (document.readyState === 'complete') resolve();
-            else window.addEventListener('load', resolve, { once: true });
-          }),
-          document.fonts ? document.fonts.ready : Promise.resolve(),
-          new Promise(function (resolve) {
-            (function check() {
-              if (document.querySelector('app-root nav')) resolve();
-              else requestAnimationFrame(check);
-            })();
-          }),
-        ]);
+        var ready = new Promise(function (resolve) {
+          (function check() {
+            if (document.querySelector('app-root nav')) resolve();
+            else requestAnimationFrame(check);
+          })();
+        });
 
         // Scrolling (and the scrollbar) only comes back once the splash is gone.
         var done = false;
@@ -290,7 +303,7 @@
           splash.querySelectorAll('.part, .glow, .splash-light').forEach(function (el) { el.style.opacity = '1'; });
           splash.querySelector('.splash-figure').style.filter = 'none';
           ready.then(fadeOut);
-          setTimeout(fadeOut, 10000);
+          setTimeout(fadeOut, 6000);
           return;
         }
 
@@ -305,39 +318,63 @@
 
         var idle;
         var tl = gsap.timeline();
-        tl.to(text, { opacity: 0.85, duration: 0.4 }, 0.15);
+        tl.to(text, { opacity: 0.85, duration: 0.25 }, 0.1);
 
         // Suit-up: each plate flies in from its own direction and locks on.
-        q('.part').forEach(function (part, i) {
+        var parts = q('.part');
+        var partStart = 0.25;
+        var partStagger = 0.07;
+        var partDuration = 0.35;
+        parts.forEach(function (part, i) {
+          var originX = +part.dataset.x;
+          var originY = +part.dataset.y;
+          var trailX = Math.sign(originX) * 9;
+          var trailY = Math.sign(originY) * 9;
           tl.fromTo(part,
-            { x: +part.dataset.x, y: +part.dataset.y, rotation: +part.dataset.r, opacity: 0 },
-            { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.55, ease: 'back.out(1.3)' },
-            0.4 + i * 0.08);
+            {
+              x: originX,
+              y: originY,
+              rotation: +part.dataset.r,
+              opacity: 0,
+              filter: 'drop-shadow(' + trailX + 'px ' + trailY + 'px 8px rgba(127, 245, 225, 0.72))',
+            },
+            {
+              x: 0,
+              y: 0,
+              rotation: 0,
+              opacity: 1,
+              filter: 'drop-shadow(0 0 8px rgba(127, 245, 225, 0.72))',
+              duration: partDuration,
+              ease: 'power2.out',
+            },
+            partStart + i * partStagger);
         });
 
-        // Power on.
-        tl.addLabel('power', 2.0)
+        // Power on only after the last plate has locked into place.
+        var powerTime = partStart + (parts.length - 1) * partStagger + partDuration + 0.08;
+        tl.addLabel('power', powerTime)
           .call(function () { text.textContent = 'Back to life.'; }, null, 'power')
-          .to(q('.glow'), { opacity: 1, duration: 0.35, ease: 'power2.out' }, 'power')
-          .to(figure, { filter: 'brightness(1.08)', duration: 0.35, ease: 'power2.out' }, 'power')
-          .fromTo(light, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out', immediateRender: false }, 'power')
-          .fromTo(q('.pulse'), { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 5, duration: 0.8, ease: 'power2.out', immediateRender: false }, 'power+=0.05');
+          .to(parts, { filter: 'drop-shadow(0 0 7px rgba(127, 245, 225, 0.9))', duration: 0.3, ease: 'power2.out' }, 'power')
+          .to(q('.glow'), { opacity: 1, duration: 0.25, ease: 'power2.out' }, 'power')
+          .to(figure, { filter: 'brightness(1.08) drop-shadow(0 0 22px rgba(0, 203, 169, 0.72))', duration: 0.25, ease: 'power2.out' }, 'power')
+          .fromTo(light, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', immediateRender: false }, 'power')
+          .fromTo(q('.pulse'), { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 5, duration: 0.5, ease: 'power2.out', immediateRender: false }, 'power+=0.05');
 
         // Thrusters ignite and idle until take-off.
-        tl.addLabel('ignite', 'power+=0.15')
-          .fromTo(q('.burst'), { opacity: 1, scale: 0.6 }, { opacity: 0, scale: 4.5, duration: 0.5, ease: 'power2.out', immediateRender: false }, 'ignite')
-          .to(flames, { opacity: 0.85, scaleY: 0.5, duration: 0.3, ease: 'power2.out' }, 'ignite')
-          .to(floor, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 'ignite')
+        tl.addLabel('ignite', 'power+=0.1')
+          .fromTo(q('.burst'), { opacity: 1, scale: 0.6 }, { opacity: 0, scale: 4.5, duration: 0.35, ease: 'power2.out', immediateRender: false }, 'ignite')
+          .to(flames, { opacity: 0.85, scaleY: 0.5, duration: 0.22, ease: 'power2.out' }, 'ignite')
+          .to(floor, { opacity: 1, duration: 0.22, ease: 'power2.out' }, 'ignite')
           .call(function () {
             idle = gsap.to(flames, { scaleY: 0.62, duration: 0.09, ease: 'none', repeat: -1, yoyo: true });
-          }, null, 'ignite+=0.3');
+          }, null, 'ignite+=0.22');
 
         // A short beat with the thrusters lit, then one take-off once the page is ready.
         var holdReached = false;
         var pageReady = false;
-        tl.addPause('ignite+=0.7', function () { holdReached = true; maybeLaunch(); });
+        tl.addPause('ignite+=0.45', function () { holdReached = true; maybeLaunch(); });
         ready.then(function () { pageReady = true; maybeLaunch(); });
-        setTimeout(function () { pageReady = true; holdReached = true; maybeLaunch(); }, 10000);
+        setTimeout(function () { pageReady = true; holdReached = true; maybeLaunch(); }, 6000);
 
         var launched = false;
         function maybeLaunch() {
@@ -345,18 +382,63 @@
           launched = true;
           if (idle) idle.kill();
 
+          // Pin the floor glow to the backdrop so it stays on the ground instead of rising with him.
+          var bg = splash.querySelector('.splash-bg');
+          var fr = floor.getBoundingClientRect();
+          var pin = 'left:' + fr.left + 'px;top:' + fr.top + 'px;width:' + fr.width + 'px;height:' + fr.height + 'px;';
+          floor.style.cssText = pin + 'bottom:auto;transform:none;opacity:1;';
+          bg.appendChild(floor);
+          var smoke = document.createElement('div');
+          smoke.className = 'splash-smoke';
+          smoke.style.cssText = pin;
+          bg.appendChild(smoke);
+
+          // Trail puffs live on the backdrop so they hang where he passed.
+          var footFlames = [flames[0], flames[1]];
+          var lastY = [];
+          function puffAt(x, y) {
+            var size = 22 + Math.random() * 12;
+            var puff = document.createElement('div');
+            puff.className = 'splash-smoke';
+            puff.style.cssText = 'left:' + (x - size / 2) + 'px;top:' + (y - size / 2) +
+              'px;width:' + size + 'px;height:' + size + 'px;filter:blur(5px);';
+            bg.appendChild(puff);
+            gsap.fromTo(puff, { opacity: 0.7, scale: 0.5 }, {
+              opacity: 0, scale: 2.4, x: (Math.random() - 0.5) * 18, duration: 0.9, ease: 'power1.out',
+              onComplete: function () { puff.remove(); },
+            });
+          }
+          // Fill the gap since the last frame so fast flight still leaves a continuous trail.
+          function emitTrail() {
+            var bgTop = bg.getBoundingClientRect().top;
+            footFlames.forEach(function (flame, i) {
+              var r = flame.getBoundingClientRect();
+              if (r.bottom < 0) return;
+              var x = r.left + r.width / 2;
+              var y = r.bottom - bgTop;
+              var from = lastY[i] === undefined ? y : lastY[i];
+              for (var py = from; py >= y; py -= 10) puffAt(x, py);
+              lastY[i] = y;
+            });
+          }
+          gsap.ticker.add(emitTrail);
+          var trail = function () { gsap.ticker.remove(emitTrail); };
+
           // Full-power flicker runs on its own: an endless tween inside the timeline would stop it ever completing.
           var roar = gsap.fromTo(flames, { scaleY: 1.05 }, { scaleY: 1.3, duration: 0.07, ease: 'none', repeat: -1, yoyo: true, paused: true });
-          gsap.timeline({ onComplete: function () { roar.kill(); finish(); } })
+          gsap.timeline({ onComplete: function () { trail(); roar.kill(); finish(); } })
             .to(text, { opacity: 0, duration: 0.3 }, 0)
-            .to([light, floor], { opacity: 0, duration: 0.6, ease: 'power2.in' }, 0.1)
-            .to(q('.arm-l'), { rotation: 24, svgOrigin: '56 100', duration: 0.45, ease: 'power2.out' }, 0)
-            .to(q('.arm-r'), { rotation: -24, svgOrigin: '144 100', duration: 0.45, ease: 'power2.out' }, 0)
-            .to(q('.head'), { y: -3, duration: 0.35, ease: 'power2.out' }, 0)
-            .to(q('.eye'), { y: -6, duration: 0.35, ease: 'power2.out' }, 0)
-            .to(flames, { opacity: 1, scaleY: 1.3, duration: 0.25, ease: 'power2.out', onComplete: function () { roar.play(); } }, 0)
-            .to(figure, { y: -window.innerHeight * 1.3, scale: 0.7, duration: 1.1, ease: 'power3.in', force3D: true }, 0.05)
-            .to(splash.querySelector('.splash-bg'), { yPercent: -100, duration: 0.95, ease: 'power3.in', force3D: true }, 0.25);
+            .to(q('.arm-l'), { rotation: 24, svgOrigin: '56 100', duration: 0.35, ease: 'power2.out' }, 0)
+            .to(q('.arm-r'), { rotation: -24, svgOrigin: '144 100', duration: 0.35, ease: 'power2.out' }, 0)
+            .to(q('.head'), { y: -2, scaleY: 0.86, svgOrigin: '100 80', duration: 0.28, ease: 'power2.out' }, 0)
+            .to(q('.eye'), { y: -15, scaleY: 0.7, duration: 0.28, ease: 'power2.out' }, 0)
+            .to(flames, { opacity: 1, scaleY: 1.3, duration: 0.2, ease: 'power2.out', onComplete: function () { roar.play(); } }, 0)
+            .to(floor, { opacity: 0, duration: 0.6, ease: 'power1.out' }, 0.15)
+            .fromTo(smoke, { opacity: 0, scale: 0.5 }, { opacity: 0.9, scale: 1.1, duration: 0.25, ease: 'power2.out' }, 0.05)
+            .to(smoke, { opacity: 0, scale: 1.8, y: -30, duration: 0.5, ease: 'power1.out' }, 0.3)
+            .to(figure, { y: -window.innerHeight * 1.3, scale: 0.7, duration: 0.85, ease: 'power3.in', force3D: true }, 0.05)
+            .to(light, { y: -window.innerHeight * 1.3, scale: 0.7, duration: 0.85, ease: 'power3.in', force3D: true }, 0.05)
+            .to(splash.querySelector('.splash-bg'), { yPercent: -100, duration: 0.6, ease: 'power3.in', force3D: true }, 0.6);
         }
       })();
     </script>

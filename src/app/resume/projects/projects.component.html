@@ -1,7 +1,7 @@
-<section id="works" class="selected-works-section py-5" [class.modal-open]="selectedProject">
+<section id="works" class="selected-works-section py-5">
   <div class="works-container">
     <div class="section-header">
-      <span class="section-kicker">Selected works</span>
+      <span class="section-kicker">Completed missions</span>
       <h2 class="section-title">Things I’ve built and shipped</h2>
       <p class="section-subtitle">Legacy rebuilds, client work, and personal projects.</p>
     </div>
@@ -20,7 +20,9 @@
 
         <div class="work-content">
           <div class="work-meta">
-            <span>{{ item.category }}<ng-container *ngIf="item.projectType === 'Personal'"> · Personal</ng-container></span>
+            <span [class.mobile-hide-on-phone]="item.category === 'Legacy Data Migration'">
+              {{ item.category }}<ng-container *ngIf="item.projectType === 'Personal'"> · Personal</ng-container>
+            </span>
             <span>{{ item.date }}</span>
           </div>
 
@@ -53,78 +55,13 @@
               (click)="$event.stopPropagation()">
               GitHub <i class="fab fa-github"></i>
             </a>
-            <button class="btn-details" type="button" (click)="openProject(item, $event)">
+            <a class="btn-details" [routerLink]="['/projects', item.id]">
               Details
-            </button>
+            </a>
           </div>
         </div>
       </article>
     </div>
   </div>
 
-  <div class="project-modal-backdrop" *ngIf="selectedProject as project" (click)="closeProject()">
-    <div class="project-modal" role="dialog" aria-modal="true" [attr.aria-label]="project.title"
-      (click)="$event.stopPropagation()">
-      <div class="pm-banner" [class.image-loading]="!loadedImages.has(project.imgLink)">
-        <img [src]="project.imgLink" [alt]="project.title + ' screenshot'" (load)="markImageLoaded(project.imgLink)" />
-        <button class="pm-close" type="button" aria-label="Close project details" (click)="closeProject()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <div class="pm-body">
-        <span class="section-kicker">{{ project.category }} · {{ project.date }}</span>
-        <h3 class="pm-title">{{ project.title }}</h3>
-
-        <div class="pm-chips">
-          <span class="pm-chip" *ngIf="project.role"><i class="fas fa-user-tie"></i> {{ project.role }}</span>
-          <span class="pm-chip"><i class="fas fa-circle pm-status-dot"></i> {{ statusLabel(project.status) }}</span>
-          <span class="pm-chip">
-            <i [class]="project.projectType === 'Personal' ? 'fas fa-user' : 'fas fa-briefcase'"></i>
-            {{ project.projectType === 'Personal' ? 'Personal project' : 'Client work' }}
-          </span>
-        </div>
-
-        <p class="pm-description">{{ project.description }}</p>
-
-        <div class="pm-grid">
-          <div class="pm-main">
-            <section class="pm-section" *ngIf="highlightsOf(project).length">
-              <h4>{{ project.projectHighlights?.length ? 'What I did' : 'Highlights' }}</h4>
-              <ul class="pm-list">
-                <li *ngFor="let item of highlightsOf(project)">{{ item }}</li>
-              </ul>
-            </section>
-
-            <section class="pm-section" *ngIf="project.coreFeatures?.length">
-              <h4>Core features</h4>
-              <ul class="pm-list">
-                <li *ngFor="let feature of project.coreFeatures">{{ feature }}</li>
-              </ul>
-            </section>
-          </div>
-
-          <aside class="pm-side">
-            <section class="pm-section" *ngIf="project.technologies?.length">
-              <h4>Tech stack</h4>
-              <div class="pm-tech">
-                <span *ngFor="let tech of project.technologies">{{ tech }}</span>
-              </div>
-            </section>
-
-            <div class="pm-links">
-              <a *ngIf="project.liveLink && project.liveLink !== '#'" [href]="project.liveLink" target="_blank"
-                rel="noopener noreferrer" class="pm-link pm-link-primary">
-                <i class="fas fa-external-link-alt"></i> Live demo
-              </a>
-              <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" rel="noopener noreferrer"
-                class="pm-link">
-                <i class="fab fa-github"></i> View on GitHub
-              </a>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

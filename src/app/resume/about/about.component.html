@@ -1,29 +1,30 @@
 <section id="about" class="about-page py-5">
   <div class="container">
     <div class="section-header" data-aos="fade-up">
-      <span class="section-kicker">About me</span>
-      <h2 class="section-title">The person behind the rebuilds</h2>
-      <p class="section-subtitle">Old systems hold years of business rules. I make sure none of them get lost on the way to the web.</p>
+      <span class="section-kicker">Pilot profile</span>
+      <h2 class="section-title">About me</h2>
     </div>
 
     <div class="about-profile-card professional-card" data-aos="fade-up">
       <div class="about-grid">
         <div class="about-story">
-          <span class="about-kicker">Professional highlights</span>
-          <h2>I modernize the systems businesses can’t afford to break.</h2>
+          <h2>Understand the problem first.</h2>
           <p>
-            For more than 11 years I have built systems people depend on every day, across HRIS, hotel booking,
-            and intellectual property management. For the last 3 years I have also rebuilt FoxPro desktop apps as web applications.
+            I’m a full-stack software engineer with 11+ years across HRIS, hospitality, and intellectual property, working end to end from database and APIs to the UI.
+            Before I write code, I gather requirements, shape and maintain the user stories, and plan the work.
+            Legacy rebuilds are my niche, but every project gets the same approach.
           </p>
-          <p>
-            I like digging into how an old system really works, mapping its data and rules, and rebuilding
-            it as a clean, maintainable web application that teams can keep improving.
-          </p>
+
+          <ul class="about-facts">
+            <li><i class="fas fa-briefcase"></i><span><strong>Currently</strong> Senior Software Developer at Civica, modernizing a legacy regulatory system for an Australian public-sector client.</span></li>
+            <li><i class="fas fa-map-marker-alt"></i><span><strong>Based in</strong> the Philippines, working remotely with international teams.</span></li>
+          </ul>
 
           <div class="about-actions">
             <a
               href="https://drive.google.com/file/d/1VDXAc-70PId4-AtEA9E97e3-TipEBl9H/view?usp=sharing"
               target="_blank"
+              rel="noopener noreferrer"
               class="resume-link">
               View Resume
             </a>
@@ -35,7 +36,7 @@
           <div class="about-image-frame" [class.image-loading]="!imageLoaded">
             <img
               src="assets/images/pai-image.png"
-              alt="Pai Nuneza"
+              alt="Pai Nuñeza"
               class="about-image"
               (load)="markImageLoaded()" />
           </div>
@@ -45,14 +46,14 @@
       <div class="about-card-footer">
         <div class="about-highlights">
           <div>
-            <i class="fas fa-comments"></i>
+            <i class="fas fa-clipboard-list"></i>
             <strong>How I work</strong>
-            <span>Clear communication, practical decisions, and steady delivery.</span>
+            <span>Requirements first: talk to users, write and maintain the stories in Agile teams (Azure DevOps), plan, then implement.</span>
           </div>
           <div>
-            <i class="fas fa-project-diagram"></i>
-            <strong>What I enjoy</strong>
-            <span>Bringing legacy desktop systems and paper workflows to the web.</span>
+            <i class="fas fa-layer-group"></i>
+            <strong>What I build</strong>
+            <span>Full-stack features, from data and APIs to the screens people use every day.</span>
           </div>
           <div>
             <i class="fas fa-check-circle"></i>
@@ -63,16 +64,5 @@
       </div>
     </div>
 
-    <div class="about-profile-card personal-card" data-aos="fade-up">
-      <div>
-        <span class="about-kicker">Personal</span>
-        <h2>Outside work, I stay active.</h2>
-      </div>
-      <div class="outside-work-list">
-        <span><i class="fas fa-dumbbell"></i> Fitness</span>
-        <span><i class="fas fa-running"></i> Workouts</span>
-        <span><i class="fas fa-walking"></i> Walking</span>
-      </div>
-    </div>
   </div>
 </section>

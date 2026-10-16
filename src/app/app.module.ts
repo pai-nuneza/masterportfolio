@@ -10,6 +10,8 @@ import { ExperienceComponent } from './resume/experience/experience.component';
 import { AboutComponent } from './resume/about/about.component';
 import { ExperienceTimelineComponent } from './resume/experience-timeline/experience-timeline.component';
 import { ExperiencePageComponent } from './resume/experience-page/experience-page.component';
+import { ProjectDetailsPageComponent } from './resume/projects/project-details-page.component';
+import { LegacyPlanetComponent } from './legacy-planet/legacy-planet.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -22,6 +24,8 @@ import { FormsModule } from '@angular/forms';
         AboutComponent,
         ExperienceTimelineComponent,
         ExperiencePageComponent,
+        ProjectDetailsPageComponent,
+        LegacyPlanetComponent,
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA], imports: [BrowserModule,

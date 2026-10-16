@@ -1,0 +1,76 @@
+<main class="project-details-page" *ngIf="project; else missingProject">
+    <div class="container">
+      <a class="project-back-link" routerLink="/" fragment="works">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        Back to projects
+      </a>
+
+      <header class="project-detail-header">
+        <span class="section-kicker">{{ project.category }} · {{ project.date }}</span>
+        <h1>{{ project.title }}</h1>
+        <p>{{ project.description || project.text }}</p>
+        <div class="project-detail-meta">
+          <span *ngIf="project.role"><i class="fas fa-user-tie" aria-hidden="true"></i>{{ project.role }}</span>
+          <span><i class="fas fa-circle project-status-dot" aria-hidden="true"></i>{{ statusLabel(project.status) }}</span>
+          <span>
+            <i [class]="project.projectType === 'Personal' ? 'fas fa-user' : 'fas fa-briefcase'" aria-hidden="true"></i>
+            {{ project.projectType === 'Personal' ? 'Personal project' : 'Client work' }}
+          </span>
+        </div>
+      </header>
+
+      <figure class="project-detail-image" [class.image-loading]="!imageLoaded">
+        <img [src]="project.imgLink" [alt]="project.title + ' screenshot'" loading="eager" (load)="markImageLoaded()" />
+      </figure>
+
+      <div class="project-detail-layout">
+        <div class="project-detail-main">
+          <section class="project-detail-section" *ngIf="highlightsOf(project).length">
+            <h2>{{ project.projectHighlights?.length ? 'What I did' : 'Highlights' }}</h2>
+            <ul>
+              <li *ngFor="let item of highlightsOf(project)">{{ item }}</li>
+            </ul>
+          </section>
+
+          <section class="project-detail-section" *ngIf="project.coreFeatures?.length">
+            <h2>Core features</h2>
+            <ul>
+              <li *ngFor="let feature of project.coreFeatures">{{ feature }}</li>
+            </ul>
+          </section>
+        </div>
+
+        <aside class="project-detail-aside">
+          <section class="project-detail-section" *ngIf="project.technologies?.length">
+            <h2>Technology</h2>
+            <ul class="project-technology-list">
+              <li *ngFor="let technology of project.technologies">{{ technology }}</li>
+            </ul>
+          </section>
+
+          <div class="project-detail-links">
+            <a *ngIf="project.liveLink && project.liveLink !== '#'" [href]="project.liveLink" target="_blank"
+              rel="noopener noreferrer" class="project-detail-link project-detail-link-primary">
+              <i class="fas fa-external-link-alt" aria-hidden="true"></i> Live demo
+            </a>
+            <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" rel="noopener noreferrer"
+              class="project-detail-link">
+              <i class="fab fa-github" aria-hidden="true"></i> View on GitHub
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+<ng-template #missingProject>
+  <main class="project-details-page">
+    <div class="container project-not-found">
+      <h1>Project not found</h1>
+      <a class="project-back-link" routerLink="/" fragment="works">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        Back to projects
+      </a>
+    </div>
+  </main>
+</ng-template>

@@ -299,6 +299,27 @@
   }
 }
 
+@media (max-width: 576px) {
+  .message-panel {
+    padding: 1.25rem;
+  }
+
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .send-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .send-button,
+  .mailto-link {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
 @media (max-width: 640px) {
   .form-row {
     grid-template-columns: 1fr;

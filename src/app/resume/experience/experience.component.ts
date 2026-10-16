@@ -9,9 +9,9 @@ const ACCENTS = ['#ff8a5c', '#5cc8ff', '#ff6fa8', '#b38cff', '#7ee081', '#ffd25c
 /** Side projects share the legacy amber. */
 const SIDE_ACCENT = '#ffb547';
 
-/** Autoplay on the home road: a quick ring fills around each checkpoint, then the road travels slowly to the next. */
+/** Autoplay on the home road: the robot dives into each checkpoint while its ring fills, then flies on to the next. */
 const FILL_MS = 1200;
-const TRAVEL_MS = 4000;
+const TRAVEL_MS = 8000;
 /** At the finish line the whole road stays lit this long before the journey restarts. */
 const FINISH_HOLD_MS = 1500;
 
@@ -61,6 +61,8 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
   side: Chapter | null = null;
   /** Autoplay is on: checkpoint rings fill, the road travels between stops, and the next stop pulses. */
   autoplaying = false;
+  /** Autoplay holds while the visitor hovers or focuses the journey, so the story doesn't change mid-read. */
+  paused = false;
   /** Time spent on the selected stop so far; holds still only while the full chapter is open. */
   private dwell = 0;
   /** Time spent showing the parallel track, which then hands back to the road. */
@@ -179,7 +181,7 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
       let last = performance.now();
       const tick = (now: number) => {
         // Capped so a backgrounded tab doesn't skip a whole stop when it comes back.
-        const delta = Math.min(now - last, 100);
+        const delta = this.paused ? 0 : Math.min(now - last, 100);
         last = now;
         if (this.side) {
           this.sideDwell += delta;
@@ -243,11 +245,12 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
     return FILL_MS + (this.selected === this.journey.length - 1 ? FINISH_HOLD_MS : TRAVEL_MS);
   }
 
-  /** Wraps the road around the checkpoint, then lights it toward the next stop. */
+  /** The ring fills while the robot is inside the checkpoint, then the road lights toward the next stop. */
   private drawProgress(): void {
     const fillShare = Math.min(this.dwell / FILL_MS, 1);
-    this.ring?.nativeElement
-      .querySelectorAll<SVGPathElement>('.road-ring-fill')
+    const ring = this.ring?.nativeElement;
+    ring
+      ?.querySelectorAll<SVGPathElement>('.road-ring-fill')
       .forEach(arc => (arc.style.strokeDashoffset = String(1 - fillShare)));
 
     const path = this.progressPath?.nativeElement;
@@ -261,23 +264,32 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
       this.stopLengths = this.stopPoints.map(p => this.lengthAtX(path, p.x));
     }
 
-    // The lit road runs centre to centre; the robot flies straight into each checkpoint.
-    const isLast = this.selected === last;
-    const here = isLast ? total : this.stopLengths[this.selected];
-    const travel = this.autoplaying ? Math.min(Math.max((this.dwell - FILL_MS) / TRAVEL_MS, 0), 1) : 0;
-    const litLength = isLast ? total : here + travel * (this.stopLengths[this.selected + 1] - here);
-    path.style.strokeDashoffset = String(1 - litLength / total);
-
-    // Screen scale of the stretched road, and how close the robot gets before it docks.
+    // Screen scale of the stretched road, and the ring's radius on screen (r=28 in its 60-unit viewBox).
     const sx = road.clientWidth / this.roadWidth;
     const sy = road.clientHeight / this.roadHeight;
     const dockPx = 26;
+    const ringPx = ring ? (ring.getBoundingClientRect().width * 28) / 60 : 25;
+
+    // Between stops the robot flies from the far edge of one planet to the near edge of the next.
+    const isLast = this.selected === last;
+    const here = isLast ? total : this.stopLengths[this.selected];
+    const travel = this.autoplaying ? Math.min(Math.max((this.dwell - FILL_MS) / TRAVEL_MS, 0), 1) : 0;
+    const inside = isLast || this.dwell < FILL_MS;
+    let litLength = here;
+    if (!inside) {
+      const exit = this.lengthAtX(path, this.stopPoints[this.selected].x + ringPx / sx);
+      const entry = this.lengthAtX(path, this.stopPoints[this.selected + 1].x - ringPx / sx);
+      litLength = exit + travel * (entry - exit);
+    }
+    path.style.strokeDashoffset = String(1 - litLength / total);
     const head = path.getPointAtLength(litLength);
 
     const robot = this.robot?.nativeElement;
-    if (robot) {
-      const near = [this.stopPoints[this.selected], this.stopPoints[this.selected + 1]].filter(Boolean);
-      this.placeRobot(robot, path, litLength, total, sx, sy, near, dockPx, 1);
+    if (robot && inside) {
+      robot.style.opacity = '0';
+    } else if (robot) {
+      const near = [this.stopPoints[this.selected], this.stopPoints[this.selected + 1]];
+      this.placeRobot(robot, path, litLength, total, sx, sy, near, dockPx, 1, ringPx);
     }
 
     // The parallel track: its robot keeps pace with the main one, at the same point in time.
@@ -301,7 +313,7 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  /** Puts a robot on its path, facing along it, shrinking into any checkpoint it reaches. */
+  /** Puts a robot on its path, facing along it, shrinking into any checkpoint it reaches (measured from its edge). */
   private placeRobot(
     robot: HTMLElement,
     path: SVGPathElement,
@@ -312,6 +324,7 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
     checkpoints: { x: number; y: number }[],
     dockPx: number,
     visibility: number,
+    radiusPx = 0,
   ): void {
     const p = path.getPointAtLength(length);
     const ahead = path.getPointAtLength(Math.min(length + 1, total));
@@ -319,7 +332,7 @@ export class ExperienceComponent implements AfterViewInit, OnDestroy {
     const angle = (Math.atan2((ahead.y - behind.y) * sy, (ahead.x - behind.x) * sx) * 180) / Math.PI;
     const x = p.x * sx;
     const y = p.y * sy;
-    const distance = Math.min(...checkpoints.map(c => Math.hypot(c.x * sx - x, c.y * sy - y)), Infinity);
+    const distance = Math.min(...checkpoints.map(c => Math.hypot(c.x * sx - x, c.y * sy - y) - radiusPx), Infinity);
     const docked = Math.min(Math.max(distance / dockPx, 0), 1);
     robot.style.opacity = String(Math.min(docked * 2.5, 1) * visibility);
     robot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${angle}deg) scale(${0.35 + 0.65 * docked})`;
