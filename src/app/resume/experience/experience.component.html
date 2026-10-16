@@ -1,8 +1,8 @@
 <section id="experience" class="experience-page py-5">
   <div class="container">
     <div class="section-header">
-      <span class="section-kicker">Flight path</span>
-      <h2 class="section-title">{{ full ? 'Every chapter so far' : '11+ years, one story' }}</h2>
+      <span class="section-kicker">Experience</span>
+      <h2 class="section-title">{{ full ? 'Career history' : '11+ years of experience' }}</h2>
       <p class="section-subtitle" *ngIf="full">Every role, what I built there, and the stack I worked with.</p>
     </div>
 
@@ -77,7 +77,7 @@
               (click)="selectSide(detour.quest)">
               <span class="road-dot"><i [class]="detour.quest.exp.icon"></i></span>
               <span class="road-label">
-                <span class="road-year">Parallel track · {{ detour.quest.year }} – {{ detour.quest.endYear }}</span>
+                <span class="road-year">Concurrent project · {{ detour.quest.year }} – {{ detour.quest.endYear }}</span>
                 <span class="road-company">{{ detour.quest.exp.short }}</span>
               </span>
             </button>

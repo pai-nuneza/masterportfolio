@@ -1,17 +1,17 @@
 <section id="works" class="selected-works-section py-5">
   <div class="works-container">
     <div class="section-header">
-      <span class="section-kicker">Completed missions</span>
+      <span class="section-kicker">Selected projects</span>
       <h2 class="section-title">Things I’ve built and shipped</h2>
       <p class="section-subtitle">Legacy rebuilds, client work, and personal projects.</p>
     </div>
 
     <div class="works-grid">
-      <article class="work-card" [class.work-card-large]="item.isLargeCard" *ngFor="let item of allProjects">
-        <div class="work-image-wrap" [class.image-loading]="!loadedImages.has(item.imgLink)">
+      <article class="work-card" [class.work-card-large]="item.isLargeCard" [class.work-card-text-only]="!item.imgLink" [class.work-card-diagram]="item.imagePresentation === 'diagram'" *ngFor="let item of allProjects">
+        <div class="work-image-wrap" [class.image-loading]="!loadedImages.has(item.imgLink)" *ngIf="item.imgLink">
           <img
             [src]="item.imgLink"
-            [alt]="item.title"
+            [alt]="item.imageAlt || item.title"
             class="work-image"
             loading="lazy"
             decoding="async"
@@ -21,7 +21,7 @@
         <div class="work-content">
           <div class="work-meta">
             <span [class.mobile-hide-on-phone]="item.category === 'Legacy Data Migration'">
-              {{ item.category }}<ng-container *ngIf="item.projectType === 'Personal'"> · Personal</ng-container>
+              {{ item.category }}<ng-container *ngIf="item.projectType === 'Personal'"> · Personal</ng-container><ng-container *ngIf="item.projectType === 'Internal'"> · Internal</ng-container>
             </span>
             <span>{{ item.date }}</span>
           </div>

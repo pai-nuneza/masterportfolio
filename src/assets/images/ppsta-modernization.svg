@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">PPSTA business system modernization</title>
+  <desc id="desc">A slow desktop system is being modernized as a PHP and CakePHP web application for member and financial workflows, backed by a relational database. A legacy user sync is documented; full FoxPro conversion details are not.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#147d72"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="560" fill="#f4f7f8"/>
+  <path d="M0 0h1280v12H0z" fill="#147d72"/>
+  <text x="64" y="66" fill="#147d72" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="1.5">PPSTA BUSINESS SYSTEM</text>
+  <text x="64" y="112" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="34" font-weight="700">From slow desktop workflows to web operations</text>
+  <text x="64" y="143" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="17">PHP / CakePHP 4.4 modernization · core architecture at a glance</text>
+
+  <rect x="64" y="186" width="252" height="196" rx="12" fill="#ffffff" stroke="#d8dfdf" stroke-width="2"/>
+  <text x="88" y="220" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1.1">THE PROBLEM</text>
+  <text x="88" y="267" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700">Slow desktop</text>
+  <text x="88" y="300" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700">application</text>
+  <text x="88" y="344" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="15">Legacy member and</text>
+  <text x="88" y="367" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="15">insurance workflows</text>
+
+  <path d="M316 284h42" fill="none" stroke="#147d72" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="368" y="186" width="334" height="196" rx="12" fill="#173b37"/>
+  <text x="394" y="220" fill="#85d6c6" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1.1">THE MODERNIZATION</text>
+  <text x="394" y="267" fill="#ffffff" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700">PHP web application</text>
+  <text x="394" y="300" fill="#d1e2dc" font-family="Segoe UI,Arial,sans-serif" font-size="18">CakePHP 4.4</text>
+  <text x="394" y="344" fill="#d1e2dc" font-family="Segoe UI,Arial,sans-serif" font-size="15">Authentication · permissions</text>
+  <text x="394" y="367" fill="#d1e2dc" font-family="Segoe UI,Arial,sans-serif" font-size="15">Audit logging · reporting</text>
+
+  <path d="M702 284h42" fill="none" stroke="#147d72" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="754" y="186" width="462" height="196" rx="12" fill="#ffffff" stroke="#b9d9d2" stroke-width="2"/>
+  <text x="780" y="220" fill="#147d72" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1.1">CONNECTED WORKFLOWS</text>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="600" fill="#28554d">
+    <rect x="780" y="240" width="202" height="34" rx="6" fill="#e8f2ef"/><text x="794" y="262">Members, plans, premiums</text>
+    <rect x="992" y="240" width="198" height="34" rx="6" fill="#e8f2ef"/><text x="1006" y="262">Loans and claims</text>
+    <rect x="780" y="282" width="202" height="34" rx="6" fill="#f1f4f3"/><text x="794" y="304">Accounting and reports</text>
+    <rect x="992" y="282" width="198" height="34" rx="6" fill="#f1f4f3"/><text x="1006" y="304">Payroll and remittances</text>
+    <rect x="780" y="324" width="410" height="34" rx="6" fill="#e8f2ef"/><text x="794" y="346">Relational database · schema, indexes, procedures</text>
+  </g>
+
+  <rect x="64" y="414" width="516" height="82" rx="9" fill="#e4f2ee" stroke="#b9d9d2" stroke-width="1.5"/>
+  <text x="84" y="442" fill="#00675d" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">VERIFIED INTEGRATION</text>
+  <text x="84" y="474" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600">posdcash users  -&gt;  explicit sync  -&gt;  current users</text>
+
+  <rect x="602" y="414" width="614" height="82" rx="9" fill="#fff6e8" stroke="#dfc99e" stroke-width="1.5"/>
+  <text x="622" y="442" fill="#8e5700" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1">SCOPE NOTE</text>
+  <text x="622" y="474" fill="#5c4a2b" font-family="Segoe UI,Arial,sans-serif" font-size="15">Full FoxPro conversion method and data scope are not documented.</text>
+</svg>

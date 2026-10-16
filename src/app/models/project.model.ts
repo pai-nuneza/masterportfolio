@@ -9,17 +9,20 @@ export interface Project {
   technologies: string[];
   category: string;
   date: string;
-  imgLink: string;
+  imgLink?: string;
+  imageAlt?: string;
+  imagePresentation?: 'diagram' | 'screenshot';
   featured: boolean;
   isLargeCard?: boolean;
   status: string;
-  projectType?: 'Professional' | 'Personal';
+  projectType?: 'Professional' | 'Personal' | 'Internal';
   isPersonal?: boolean;
   githubLink?: string;
   liveLink?: string | null;
   isPrivate?: boolean;
   clientName?: string;
   coreFeatures?: string[];
+  limitations?: string[];
   /** What I personally did on the project; shown as "What I did". */
   projectHighlights?: string[];
   /** Notable technical points; shown when there are no project highlights. */

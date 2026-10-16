@@ -102,6 +102,10 @@
   padding: clamp(0.95rem, 1.3vw, 1.25rem);
 }
 
+.work-card-text-only .work-content {
+  min-height: 210px;
+}
+
 .work-meta {
   display: flex;
   justify-content: space-between;
@@ -247,6 +251,36 @@
     grid-template-columns: 88px minmax(0, 1fr);
     flex-direction: initial;
     max-width: 540px;
+  }
+
+  .work-card.work-card-diagram {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-card.work-card-diagram .work-image-wrap {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 7;
+  }
+
+  .work-card.work-card-diagram .work-image {
+    object-fit: contain;
+  }
+
+  .work-card.work-card-diagram .work-content {
+    grid-column: 1;
+  }
+
+  .work-card-text-only {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-card-text-only .work-content {
+    grid-column: 1;
+    min-height: 0;
   }
 
   .work-card-large::before {

@@ -116,11 +116,6 @@ section.contact-section > * {
   text-transform: uppercase;
 }
 
-.section-kicker::before {
-  content: "// ";
-  color: #7ff5e1;
-}
-
 .section-title {
   margin: 0.5rem 0 0;
   color: #ffffff;

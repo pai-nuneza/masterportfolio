@@ -14,13 +14,13 @@
           <span><i class="fas fa-circle project-status-dot" aria-hidden="true"></i>{{ statusLabel(project.status) }}</span>
           <span>
             <i [class]="project.projectType === 'Personal' ? 'fas fa-user' : 'fas fa-briefcase'" aria-hidden="true"></i>
-            {{ project.projectType === 'Personal' ? 'Personal project' : 'Client work' }}
+            {{ project.projectType === 'Personal' ? 'Personal project' : project.projectType === 'Internal' ? 'Internal project' : 'Client work' }}
           </span>
         </div>
       </header>
 
-      <figure class="project-detail-image" [class.image-loading]="!imageLoaded">
-        <img [src]="project.imgLink" [alt]="project.title + ' screenshot'" loading="eager" (load)="markImageLoaded()" />
+      <figure class="project-detail-image" [class.image-loading]="!imageLoaded" [class.project-detail-image-diagram]="project.imagePresentation === 'diagram'" *ngIf="project.imgLink">
+        <img [src]="project.imgLink" [alt]="project.imageAlt || project.title + ' project visual'" loading="eager" (load)="markImageLoaded()" />
       </figure>
 
       <div class="project-detail-layout">
@@ -36,6 +36,13 @@
             <h2>Core features</h2>
             <ul>
               <li *ngFor="let feature of project.coreFeatures">{{ feature }}</li>
+            </ul>
+          </section>
+
+          <section class="project-detail-section project-detail-section-notes" *ngIf="project.limitations?.length">
+            <h2>Operational notes</h2>
+            <ul>
+              <li *ngFor="let limitation of project.limitations">{{ limitation }}</li>
             </ul>
           </section>
         </div>

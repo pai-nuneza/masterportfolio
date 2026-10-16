@@ -18,7 +18,7 @@ export class ProjectDetailsPageComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const project = (projectsData as Project[]).find(item => item.id === params.get('id'));
       this.project = project
-        ? { ...project, projectType: project.isPersonal ? 'Personal' : 'Professional' }
+        ? { ...project, projectType: project.projectType ?? (project.isPersonal ? 'Personal' : 'Professional') }
         : undefined;
       this.imageLoaded = false;
     });

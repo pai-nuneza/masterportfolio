@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+  <title id="title">FoxPro to MySQL migration workflow</title>
+  <desc id="desc">A Windows WPF application discovers DBF tables and memo files, maps fields, and transfers rows to MySQL in batches. Checkpoints, logs, and CSV reports support recovery and review.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#147d72"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="560" fill="#f4f7f8"/>
+  <path d="M0 0h1280v12H0z" fill="#d58c18"/>
+  <text x="64" y="66" fill="#8e5700" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="1.5">FOXPRO TO MYSQL MIGRATOR</text>
+  <text x="64" y="112" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="34" font-weight="700">Move legacy tables with control and traceability</text>
+  <text x="64" y="143" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="17">A Windows desktop workflow for DBF data, memo fields, and MySQL</text>
+
+  <rect x="64" y="182" width="248" height="180" rx="12" fill="#ffffff" stroke="#d8dfdf" stroke-width="2"/>
+  <text x="88" y="216" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">1 · SOURCE</text>
+  <text x="88" y="261" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="700">FoxPro / dBase</text>
+  <text x="88" y="295" fill="#52645f" font-family="Consolas,monospace" font-size="16">.DBF + .FPT / .DBT</text>
+  <text x="88" y="331" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="15">Folder-based table discovery</text>
+
+  <path d="M312 271h31" fill="none" stroke="#147d72" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="354" y="182" width="266" height="180" rx="12" fill="#e7f2ef" stroke="#c6ded8" stroke-width="2"/>
+  <text x="378" y="216" fill="#147d72" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">2 · INSPECT AND MAP</text>
+  <text x="378" y="261" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Schema and fields</text>
+  <text x="378" y="295" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="15">Read memo data · map types</text>
+  <text x="378" y="331" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="15">Create destination tables</text>
+
+  <path d="M620 271h31" fill="none" stroke="#147d72" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="662" y="182" width="292" height="180" rx="12" fill="#173b37"/>
+  <text x="686" y="216" fill="#85d6c6" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">3 · TRANSFER</text>
+  <text x="686" y="261" fill="#ffffff" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700">Batch records</text>
+  <text x="686" y="295" fill="#d1e2dc" font-family="Segoe UI,Arial,sans-serif" font-size="15">Full reload or patch load</text>
+  <text x="686" y="331" fill="#d1e2dc" font-family="Segoe UI,Arial,sans-serif" font-size="15">Checkpoint and resume</text>
+
+  <path d="M954 271h31" fill="none" stroke="#147d72" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="996" y="182" width="220" height="180" rx="12" fill="#ffffff" stroke="#b9d9d2" stroke-width="2"/>
+  <text x="1020" y="216" fill="#147d72" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">4 · TARGET</text>
+  <ellipse cx="1106" cy="274" rx="64" ry="18" fill="#e1f1ed" stroke="#147d72" stroke-width="2"/>
+  <path d="M1042 274v38c0 10 29 18 64 18s64-8 64-18v-38" fill="#e1f1ed" stroke="#147d72" stroke-width="2"/>
+  <path d="M1042 293c0 10 29 18 64 18s64-8 64-18" fill="none" stroke="#147d72" stroke-width="2"/>
+  <text x="1106" y="282" text-anchor="middle" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="700">MySQL</text>
+
+  <rect x="64" y="394" width="1152" height="82" rx="10" fill="#ffffff" stroke="#d8dfdf" stroke-width="1.5"/>
+  <text x="88" y="425" fill="#52645f" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">OBSERVABILITY AND RECOVERY</text>
+  <text x="88" y="453" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600">Progress logs</text>
+  <circle cx="226" cy="447" r="3" fill="#d58c18"/>
+  <text x="244" y="453" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600">CSV reports for skipped, failed, and repaired records</text>
+  <circle cx="779" cy="447" r="3" fill="#d58c18"/>
+  <text x="797" y="453" fill="#173b37" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="600">Checkpoint file</text>
+
+  <rect x="64" y="496" width="1152" height="42" rx="7" fill="#fff4df"/>
+  <text x="84" y="523" fill="#71501c" font-family="Segoe UI,Arial,sans-serif" font-size="14">Operational note: full reload drops and recreates destination tables. Windows-only (WPF).</text>
+</svg>

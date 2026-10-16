@@ -17,7 +17,7 @@ export class ProjectsComponent implements OnInit {
     // Add project type property to each project and set featured to false by default
     this.allProjects = projects.map(p => ({
       ...p,
-      projectType: p.isPersonal ? 'Personal' : 'Professional',
+      projectType: p.projectType ?? (p.isPersonal ? 'Personal' : 'Professional'),
       featured: p.featured || false,
       isLargeCard: p.isLargeCard || false
     }));
