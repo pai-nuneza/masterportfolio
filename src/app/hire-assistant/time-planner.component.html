@@ -1,0 +1,41 @@
+<div class="tp">
+  <div class="tp-zones">
+    <label>
+      <span>You</span>
+      <select [ngModel]="zone" (ngModelChange)="setZone($event)" aria-label="Your time zone">
+        <option *ngFor="let option of options" [value]="option.zone">{{ option.label }}</option>
+      </select>
+    </label>
+    <span class="tp-diff">{{ difference }}</span>
+  </div>
+
+  <div class="tp-grid" role="group" aria-label="The next 24 hours in your time and Pai's">
+    <span class="tp-row-label" [title]="zoneName(zone)">You</span>
+    <span class="tp-row-label tp-pai" [title]="paiPlace">Pai</span>
+    <button type="button" *ngFor="let slot of slots; let first = first" class="tp-slot" [class.tp-now]="first"
+      [class.tp-picked]="slot === selected" (click)="selected = slot" [attr.aria-label]="describe(slot)" [title]="describe(slot)">
+      <span class="tp-cell" [class.tp-free]="slot.visitorFree" [class.tp-both]="slot.visitorFree && slot.paiFree">
+        {{ slot.newDay ? dayName(slot.visitor) : label(slot.visitor) }}
+      </span>
+      <span class="tp-cell" [class.tp-work]="slot.paiFree" [class.tp-both]="slot.visitorFree && slot.paiFree">
+        {{ slot.pai.hour === 0 && !slot.pai.minute ? dayName(slot.pai) : label(slot.pai) }}
+      </span>
+    </button>
+  </div>
+
+  <div class="tp-legend">
+    <span><i class="tp-key tp-free"></i>Your day</span>
+    <span><i class="tp-key tp-work"></i>Pai's hours</span>
+    <span><i class="tp-key tp-both"></i>Good for both</span>
+  </div>
+
+  <p class="tp-note">{{ bestRange }}</p>
+
+  <div *ngIf="selected" class="tp-pick">
+    <p>
+      <strong>{{ time(selected.at, zone, true) }}</strong> your time is
+      <strong>{{ time(selected.at, paiZone, true) }}</strong> for Pai.
+    </p>
+    <a [href]="requestHref"><i class="fas fa-envelope"></i>Request this time</a>
+  </div>
+</div>

@@ -1,0 +1,357 @@
+/* Hidden (but laid out, so the flying robot can find it) until the robot docks. */
+.ha {
+  position: fixed;
+  right: clamp(1.25rem, 4vw, 3.5rem);
+  bottom: clamp(1.25rem, 5vh, 3rem);
+  z-index: 1050;
+  visibility: hidden;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.ha-docked {
+  visibility: visible;
+}
+
+.ha-launcher {
+  display: block;
+  width: 68px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 0 8px rgba(127, 245, 225, 0.45));
+}
+
+.ha-launcher:focus-visible {
+  outline: 2px solid #7ff5e1;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.ha-face {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+/* A little pop as the face takes over from the flying robot, then a gentle hover. */
+.ha-docked .ha-face {
+  animation: ha-pop 0.4s ease-out, ha-hover 2.4s ease-in-out 0.4s infinite alternate;
+}
+
+.ha-head {
+  fill: #ffb547;
+  stroke: #0b1530;
+  stroke-width: 0.8;
+}
+
+.ha-visor {
+  fill: #0b1530;
+}
+
+.ha-line {
+  fill: none;
+  stroke: #0b1530;
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+.ha-antenna {
+  stroke: #ffb547;
+  stroke-width: 1.2;
+}
+
+.ha-eye {
+  fill: #7ff5e1;
+}
+
+.ha-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ha-blink-eyes 4.5s infinite;
+}
+
+.ha-bubble,
+.ha-panel,
+.ha-planner {
+  position: absolute;
+  right: 0;
+  border: 1px solid rgba(127, 245, 225, 0.45);
+  background: rgba(8, 17, 34, 0.95);
+  color: #d9fff8;
+}
+
+.ha-bubble {
+  bottom: 110%;
+  width: max-content;
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px 10px 2px 10px;
+  font-size: 0.8rem;
+}
+
+/* The chat's size; the time planner sits just to its left. */
+.ha {
+  --ha-w: min(400px, calc(100vw - 2.5rem));
+  --ha-h: min(560px, calc(100vh - 10rem));
+}
+
+.ha-large {
+  --ha-w: min(760px, calc(100vw - 2.5rem));
+  --ha-h: min(820px, calc(100vh - 10rem));
+}
+
+.ha-panel {
+  bottom: calc(100% + 0.75rem);
+  display: flex;
+  flex-direction: column;
+  width: var(--ha-w);
+  height: var(--ha-h);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  transition: width 0.25s ease, height 0.25s ease;
+}
+
+.ha-planner {
+  right: calc(var(--ha-w) + 0.75rem);
+  bottom: calc(100% + 0.75rem);
+  width: min(420px, calc(100vw - 2.5rem));
+  padding-bottom: 0.8rem;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s 0.2s;
+}
+
+.ha-planner-show {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ha-planner app-time-planner {
+  display: block;
+  padding: 0 0.9rem;
+}
+
+/* No room beside the chat: the planner opens over it instead. */
+@media (max-width: 900px) {
+  .ha-planner {
+    right: 0;
+    z-index: 1;
+  }
+}
+
+.ha-large .ha-msg {
+  font-size: 0.9rem;
+}
+
+.ha-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid rgba(127, 245, 225, 0.2);
+  color: #ffb547;
+  font-weight: 700;
+}
+
+.ha-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: #7ff5e1;
+}
+
+.ha-close {
+  margin-left: 0.4rem;
+  padding: 0.2rem 0.35rem;
+  border: 0;
+  background: none;
+  color: #a9bac9;
+  cursor: pointer;
+}
+
+.ha-close:hover {
+  color: #7ff5e1;
+}
+
+.ha-log {
+  flex: 1;
+  padding: 0.8rem;
+  overflow-y: auto;
+}
+
+.ha-msg {
+  max-width: 88%;
+  margin-bottom: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px 10px 10px 2px;
+  background: rgba(127, 245, 225, 0.08);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.ha-msg p {
+  margin: 0 0 0.35rem;
+}
+
+.ha-msg p:last-child {
+  margin: 0;
+}
+
+.ha-me {
+  margin-left: auto;
+  border-radius: 10px 10px 2px 10px;
+  background: rgba(255, 181, 71, 0.16);
+  color: #fff3dc;
+}
+
+.ha-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.ha-links a,
+.ha-links button,
+.ha-chips button {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(255, 181, 71, 0.55);
+  border-radius: 999px;
+  background: none;
+  color: #ffb547;
+  font: inherit;
+  font-size: 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ha-links a:hover,
+.ha-links button:hover,
+.ha-chips button:hover {
+  background: rgba(255, 181, 71, 0.14);
+}
+
+.ha-links i {
+  margin-right: 0.35rem;
+}
+
+.ha-typing span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background: #7ff5e1;
+  animation: ha-blink 1s infinite;
+}
+
+.ha-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ha-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.ha-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.6rem 0.8rem;
+  border-top: 1px solid rgba(127, 245, 225, 0.2);
+}
+
+.ha-form {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 0.8rem 0.8rem;
+}
+
+.ha-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid rgba(127, 245, 225, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.ha-form button {
+  padding: 0 0.7rem;
+  border: 0;
+  border-radius: 8px;
+  background: #ffb547;
+  color: #081122;
+  cursor: pointer;
+}
+
+@keyframes ha-hover {
+  to {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes ha-pop {
+  from {
+    scale: 0.85;
+  }
+  60% {
+    scale: 1.12;
+  }
+}
+
+@keyframes ha-blink-eyes {
+  0%,
+  92%,
+  100% {
+    transform: none;
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes ha-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ha-docked .ha-face,
+  .ha-blink,
+  .ha-typing span {
+    animation: none;
+  }
+}
+
+.ha-related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  color: #a9bac9;
+  font-size: 0.72rem;
+}
+
+.ha-related button {
+  padding: 0.2rem 0.5rem;
+  border: 1px dashed rgba(127, 245, 225, 0.45);
+  border-radius: 999px;
+  background: none;
+  color: #7ff5e1;
+  font: inherit;
+  cursor: pointer;
+}

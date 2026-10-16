@@ -1,0 +1,92 @@
+<!-- The repair robot, docked as a hire assistant once the planet is done. -->
+<div class="ha" [class.ha-docked]="docked()" [class.ha-large]="large">
+  <section *ngIf="open" id="ha-panel" class="ha-panel" role="dialog" aria-label="Hire Pai assistant">
+    <header class="ha-head">
+      <span><span class="ha-dot"></span>Pai's assistant</span>
+      <span>
+        <button type="button" class="ha-close" (click)="togglePlanner()" [attr.aria-expanded]="plannerShown"
+          aria-label="Compare your time with Pai's" title="Compare times" aria-controls="ha-planner">
+          <i class="far fa-clock"></i>
+        </button>
+        <button type="button" class="ha-close" (click)="large = !large" [attr.aria-label]="large ? 'Make chat smaller' : 'Make chat bigger'"
+          [title]="large ? 'Smaller' : 'Bigger'">
+          <i class="fas" [class.fa-compress-alt]="large" [class.fa-expand-alt]="!large"></i>
+        </button>
+        <button type="button" class="ha-close" (click)="close()" aria-label="Close assistant" title="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </span>
+    </header>
+
+    <div #log class="ha-log" aria-live="polite">
+      <div *ngFor="let message of messages" class="ha-msg" [class.ha-me]="message.from === 'visitor'">
+        <p *ngFor="let line of message.text">{{ line }}</p>
+        <div *ngIf="message.links?.length || message.timePlanner" class="ha-links">
+          <button *ngIf="message.timePlanner" type="button" (click)="togglePlanner()" [attr.aria-expanded]="plannerShown"
+            aria-controls="ha-planner">
+            <i class="far fa-clock"></i>Compare times
+          </button>
+          <ng-container *ngFor="let link of message.links">
+            <a *ngIf="link.href.startsWith('#'); else route" routerLink="/" [fragment]="link.href.slice(1)" (click)="close()">
+              <i [class]="link.icon"></i>{{ link.label }}
+            </a>
+            <ng-template #route>
+              <a *ngIf="link.href.startsWith('/'); else away" [routerLink]="link.href" (click)="close()">
+                <i [class]="link.icon"></i>{{ link.label }}
+              </a>
+            </ng-template>
+            <ng-template #away>
+              <a [href]="link.href" [attr.target]="link.external ? '_blank' : null" [attr.rel]="link.external ? 'noopener noreferrer' : null">
+                <i [class]="link.icon"></i>{{ link.label }}
+              </a>
+            </ng-template>
+          </ng-container>
+        </div>
+        <div *ngIf="message.related?.length" class="ha-related">
+          <span>Related:</span>
+          <button type="button" *ngFor="let title of message.related" (click)="askAbout(title)">{{ title }}</button>
+        </div>
+      </div>
+      <div *ngIf="typing" class="ha-msg ha-typing" aria-label="Typing"><span></span><span></span><span></span></div>
+    </div>
+
+    <div *ngIf="presets.length" class="ha-chips">
+      <button type="button" *ngFor="let topic of presets" (click)="pick(topic)">{{ topic.label }}</button>
+    </div>
+
+    <form class="ha-form" (ngSubmit)="send()">
+      <input #input name="draft" [(ngModel)]="draft" placeholder="Ask about hiring Pai…" autocomplete="off" maxlength="200"
+        aria-label="Your question" />
+      <button type="submit" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+    </form>
+  </section>
+
+  <!-- The time planner opens beside the chat from its buttons and stays until closed (or the chat closes);
+       it stays alive while hidden, so the chosen time zone and hour are kept. -->
+  <section id="ha-planner" class="ha-planner" [class.ha-planner-show]="open && plannerShown" aria-label="Compare your time with Pai's">
+    <header class="ha-head">
+      <span><i class="far fa-clock"></i> Your time vs Pai's</span>
+      <button type="button" class="ha-close" (click)="hidePlanner()" aria-label="Close time planner" title="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </header>
+    <app-time-planner></app-time-planner>
+  </section>
+
+  <span *ngIf="bubble" class="ha-bubble" role="status">{{ bubbleText }}</span>
+
+  <button #launcher type="button" class="ha-launcher" (click)="toggle()" (mouseenter)="showBubble(true)"
+    (mouseleave)="showBubble(false)" (focus)="showBubble(true)" (blur)="showBubble(false)"
+    [attr.aria-expanded]="open" aria-controls="ha-panel" aria-label="Ask about hiring Pai" [tabindex]="docked() ? 0 : -1">
+    <!-- The repair robot's face. The flying robot's head lands on this circle, at this size, as it docks. -->
+    <svg #robot class="ha-face" viewBox="-10 -10 20 20" aria-hidden="true">
+      <line class="ha-line ha-antenna" x1="0" y1="-8" x2="0" y2="-11" />
+      <circle class="ha-eye" cx="0" cy="-11.6" r="1.2" />
+      <circle class="ha-head" cx="0" cy="0" r="8.5" />
+      <rect class="ha-visor" x="-6" y="-3.8" width="12" height="6.4" rx="3.2" />
+      <ellipse class="ha-eye ha-blink" cx="-2.6" cy="-0.6" rx="1.3" ry="1.6" />
+      <ellipse class="ha-eye ha-blink" cx="2.6" cy="-0.6" rx="1.3" ry="1.6" />
+      <path class="ha-line" d="M-2 4.6 Q0 6 2 4.6" />
+    </svg>
+  </button>
+</div>

@@ -121,102 +121,6 @@ section.contact-section > * {
   color: #7ff5e1;
 }
 
-/* Back-to-top robot. Lives in global styles so the app shell stays under its CSS budget. */
-.cameo {
-  position: fixed;
-  right: clamp(0.75rem, 2vw, 1.5rem);
-  bottom: clamp(0.75rem, 3vh, 1.75rem);
-  z-index: 1040;
-  width: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  filter: drop-shadow(0 0 8px rgba(127, 245, 225, 0.45));
-  transform: translateY(24px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.cameo svg {
-  display: block;
-  width: 100%;
-  overflow: visible;
-  animation: cameo-hover 2.4s ease-in-out infinite alternate;
-}
-
-.cameo-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: none;
-}
-
-.cameo:focus-visible {
-  outline: 2px solid #7ff5e1;
-  outline-offset: 4px;
-  border-radius: 8px;
-}
-
-.cameo-glow {
-  fill: #7ff5e1;
-}
-
-.cameo-flame {
-  fill: #7ff5e1;
-  opacity: 0.85;
-  transform-box: fill-box;
-  transform-origin: center top;
-  animation: cameo-flame 0.09s linear infinite alternate;
-}
-
-.cameo-launch {
-  opacity: 0;
-  transform: translateY(-110vh);
-  transition: transform 0.9s cubic-bezier(0.55, 0, 0.9, 0.4), opacity 0.2s ease 0.7s;
-}
-
-.cameo-roll svg {
-  animation: cameo-roll 0.9s ease-in-out 2;
-}
-
-.cameo-bubble {
-  position: absolute;
-  right: 120%;
-  bottom: 70%;
-  width: max-content;
-  max-width: 220px;
-  padding: 0.45rem 0.7rem;
-  border: 1px solid rgba(127, 245, 225, 0.5);
-  border-radius: 10px 10px 2px 10px;
-  background: rgba(8, 17, 34, 0.92);
-  color: #d9fff8;
-  font-family: Consolas, "Courier New", monospace;
-  font-size: 0.75rem;
-  text-align: left;
-}
-
-@keyframes cameo-hover {
-  to {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes cameo-flame {
-  from {
-    transform: scaleY(0.75);
-  }
-  to {
-    transform: scaleY(1.15);
-  }
-}
-
-@keyframes cameo-roll {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .section-title {
   margin: 0.5rem 0 0;
   color: #ffffff;
@@ -232,7 +136,7 @@ section.contact-section > * {
   line-height: 1.6;
 }
 
-/* Background planet: a grey, dead Earth brought back to life by one robot (see LegacyPlanetComponent). */
+/* Background planet: a working legacy Earth upgraded, then maintained nonstop, by one robot (see LegacyPlanetComponent). */
 .legacy-planet {
   position: absolute;
   top: 14vh;
@@ -243,53 +147,88 @@ section.contact-section > * {
   animation: planet-bob 18s ease-in-out infinite alternate;
 }
 
-.lp-craters {
-  fill: rgba(0, 0, 0, 0.3);
+.lp-old-land {
+  fill: #7d8a5c;
 }
 
-.lp-old-land {
-  fill: #6b5e4c;
+.lp-old-clouds {
+  fill: rgba(225, 225, 215, 0.35);
+}
+
+.lp-old-city {
+  fill: #e8b56a;
+  opacity: 0.7;
 }
 
 .lp-land {
   fill: #3fae5a;
+  stroke: #7ff5e1;
+  stroke-width: 0.6;
+  stroke-opacity: 0.55;
 }
 
 .lp-clouds {
   fill: rgba(255, 255, 255, 0.55);
 }
 
-.lp-crack {
-  fill: none;
-  stroke: #120d0a;
-  stroke-width: 2;
-  stroke-linejoin: round;
-}
-
 .lp-region-flash {
-  fill: #fff6dc;
+  fill: #e6fbff;
 }
 
 .lp-city {
-  fill: #ffd27a;
-  filter: drop-shadow(0 0 1.5px #ffb547);
+  fill: #f2fdff;
+  filter: drop-shadow(0 0 1.5px #38e1ff) drop-shadow(0 0 3px #ffd27a);
 }
 
 .lp-weld {
   fill: none;
-  stroke: #fff1b8;
-  stroke-width: 1.6;
+  stroke: #ffffff;
+  stroke-width: 1.4;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 2px #ffb547) drop-shadow(0 0 5px #ff7a1a);
+  filter: drop-shadow(0 0 2px #38e1ff) drop-shadow(0 0 5px #1f6fd1);
+}
+
+.lp-orbit {
+  fill: none;
+  stroke: #7ff5e1;
+  stroke-width: 0.5;
+  stroke-opacity: 0.35;
+  stroke-dasharray: 2 3;
+}
+
+.lp-sat-panel {
+  fill: #2f6fd8;
+  stroke: #9fd8ff;
+  stroke-width: 0.4;
+}
+
+.lp-sat-body {
+  fill: #e6edf5;
+}
+
+.lp-sat-beacon {
+  fill: #ff5a5a;
+  filter: drop-shadow(0 0 1.5px #ff5a5a);
+  animation: lp-beacon 1.4s steps(1) infinite;
+}
+
+@keyframes lp-beacon {
+  50% {
+    opacity: 0.15;
+  }
 }
 
 .lp-bot {
   fill: #ffb547;
   stroke: #0b1530;
   stroke-width: 0.8;
+}
+
+.lp-bot-eye {
+  fill: #7ff5e1;
 }
 
 .lp-bot-flame {
@@ -332,16 +271,9 @@ section.contact-section > * {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cameo svg,
-  .cameo-flame,
-  .cameo-roll svg,
   .legacy-planet,
-  .lp-bot-flame {
+  .lp-bot-flame,
+  .lp-sat-beacon {
     animation: none;
-  }
-
-  .cameo-launch {
-    transition: opacity 0.2s ease;
-    transform: none;
   }
 }

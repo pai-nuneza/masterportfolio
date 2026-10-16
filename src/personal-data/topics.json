@@ -1,0 +1,117 @@
+[
+  {
+    "label": "How to hire",
+    "question": "How do I hire Pai?",
+    "keywords": ["hire", "hiring", "work with", "engage", "contract", "freelance", "job", "role", "position", "recruit", "onboard", "get started", "open to", "looking for"],
+    "answer": [
+      "Pai is open to legacy system modernization projects, senior C# / .NET and product engineering roles, and API, backend and database-heavy systems.",
+      "The quickest way to start: send a short brief covering what the system does, what you need, and your timeline. Pai will get back to you."
+    ],
+    "links": ["form", "email", "linkedin"]
+  },
+  {
+    "label": "Tech stack",
+    "question": "What technologies does Pai know?",
+    "keywords": ["technology", "technologies", "tech", "stack", "language", "languages", "framework", "frameworks", "tools", "skills", "know", "proficient"],
+    "answer": [
+      "Main stack: C# / .NET, TypeScript, React, Angular, Vue, SQL Server and Docker, with Claude AI in the day-to-day workflow.",
+      "Also shipped with: ASP.NET MVC, .NET 8, WPF, PHP (CakePHP, CodeIgniter, Slim), MySQL, Umbraco, JavaScript, jQuery, Bootstrap and Chart.js, plus FoxPro / DBF data migrations."
+    ],
+    "links": ["projects", "resume", "github"]
+  },
+  {
+    "question": "Does Pai do backend work?",
+    "keywords": ["backend", "server", "api", "apis", "database", "databases", "sql"],
+    "answer": [
+      "Yes, backend is a core strength: C# / .NET (ASP.NET MVC, .NET 8 Web APIs), PHP (CakePHP, CodeIgniter, Slim), and SQL Server and MySQL databases.",
+      "That includes business rules, APIs, data migrations (like FoxPro / DBF to MySQL), and even a semantic search API with ML.NET and ONNX Runtime."
+    ],
+    "links": ["projects", "resume"]
+  },
+  {
+    "question": "Does Pai do frontend work?",
+    "keywords": ["frontend", "ui", "ux", "interface", "react", "angular", "vue", "javascript", "css", "design"],
+    "answer": [
+      "Yes. Pai builds frontends with React, Angular and Vue, plus JavaScript, jQuery, Bootstrap and Chart.js for older stacks.",
+      "This portfolio itself is an Angular app."
+    ],
+    "links": ["projects"]
+  },
+  {
+    "label": "Backend or frontend?",
+    "question": "Does Pai work on backend or frontend?",
+    "keywords": ["fullstack", "both", "end to end"],
+    "answer": [
+      "Both. Pai is a full-stack engineer, working end to end from the database and APIs to the UI.",
+      "Backend: C# / .NET, PHP, SQL Server, MySQL. Frontend: React, Angular, Vue. The deepest strength is backend and database-heavy systems."
+    ],
+    "links": ["projects", "resume"]
+  },
+  {
+    "question": "What legacy work has Pai done?",
+    "keywords": ["legacy", "foxpro", "old system", "migrate", "migration", "modernize", "modernization", "rebuild", "rewrite"],
+    "answer": [
+      "Legacy rebuilds are Pai's niche. For the last 3 years Pai has rebuilt FoxPro systems for the web, one now serving 200K+ members, and built a FoxPro to MySQL migration tool.",
+      "Currently Pai is modernizing a legacy regulatory system for an Australian public-sector client at Civica."
+    ],
+    "links": ["projects", "experience"]
+  },
+  {
+    "question": "What's Pai's experience?",
+    "keywords": ["experience", "years", "senior", "background", "career", "lead", "leader", "leadership", "team", "manage", "industries", "industry", "resume"],
+    "answer": [
+      "11+ years as a full-stack engineer across HRIS, hospitality and intellectual property.",
+      "Pai has worked as a technical lead (leading 4 developers, reviewing pull requests, guiding technical decisions) and is currently a Senior Software Developer (contractor) at Civica."
+    ],
+    "links": ["experience", "resume", "linkedin"]
+  },
+  {
+    "question": "Does Pai work with AI?",
+    "keywords": ["ai", "artificial intelligence", "machine learning", "ml", "claude", "llm", "semantic", "onnx"],
+    "answer": [
+      "Yes. Claude AI is part of Pai's everyday development workflow, and Pai built a semantic search Web API with .NET 8, ML.NET and ONNX Runtime."
+    ],
+    "links": ["projects"]
+  },
+  {
+    "question": "What can Pai help with?",
+    "keywords": ["service", "services", "help with", "specialty", "speciality", "offer"],
+    "answer": [
+      "Pai brings legacy systems back to life as modern, secure web applications, and builds new full-stack web apps, APIs and database-heavy systems.",
+      "Every project starts with the requirements, user stories and a plan before any code."
+    ],
+    "links": ["projects", "resume"]
+  },
+  {
+    "label": "Availability",
+    "question": "What's Pai's availability and schedule?",
+    "keywords": ["available", "availability", "schedule", "timezone", "time zone", "hours", "when", "meeting", "meet", "interview", "book", "start date", "remote", "location", "based"],
+    "answer": [
+      "Pai is based in Manila, Philippines (UTC+8) and works remotely with international teams.",
+      "Open \"Compare times\" to see how your day lines up with Pai's, and pick an hour to propose a call."
+    ],
+    "links": ["messenger", "viber"],
+    "timePlanner": true
+  },
+  {
+    "label": "Rates",
+    "question": "What are Pai's rates?",
+    "keywords": ["rates", "budget", "pay", "quote", "estimate", "charge"],
+    "answer": [
+      "Rates depend on the scope and the type of engagement.",
+      "Send a short brief and Pai will reply with an estimate."
+    ],
+    "links": ["email", "form"]
+  },
+  {
+    "label": "Contact details",
+    "question": "How can I contact Pai?",
+    "keywords": ["contact", "email", "mail", "phone", "number", "message", "messenger", "facebook", "fb", "viber", "linkedin", "text", "whatsapp", "call"],
+    "answer": [
+      "Email: {email}",
+      "Phone / Viber: {phone}",
+      "Based in the {location} (UTC+8)"
+    ],
+    "links": ["email", "call", "viber", "messenger", "linkedin"]
+  }
+]

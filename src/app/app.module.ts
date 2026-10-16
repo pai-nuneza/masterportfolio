@@ -12,6 +12,8 @@ import { ExperienceTimelineComponent } from './resume/experience-timeline/experi
 import { ExperiencePageComponent } from './resume/experience-page/experience-page.component';
 import { ProjectDetailsPageComponent } from './resume/projects/project-details-page.component';
 import { LegacyPlanetComponent } from './legacy-planet/legacy-planet.component';
+import { HireAssistantComponent } from './hire-assistant/hire-assistant.component';
+import { TimePlannerComponent } from './hire-assistant/time-planner.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -26,6 +28,8 @@ import { FormsModule } from '@angular/forms';
         ExperiencePageComponent,
         ProjectDetailsPageComponent,
         LegacyPlanetComponent,
+        HireAssistantComponent,
+        TimePlannerComponent,
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA], imports: [BrowserModule,

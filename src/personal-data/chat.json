@@ -1,0 +1,84 @@
+{
+  "bubble": {
+    "hello": "How can I help you?",
+    "atBottom": "Did you find what you were looking for?"
+  },
+  "greeting": [
+    "Hi! I'm Pai's assistant.",
+    "Ask me anything about hiring Pai: skills, experience, projects, availability, rates, or how to get in touch. Pick a topic below or type a question."
+  ],
+  "fallback": [
+    "Sorry, I couldn't find anything about that. I can only answer questions about Pai and working together."
+  ],
+  "canAskIntro": "You can ask me about:",
+  "canAsk": [
+    "How to hire Pai and what roles or projects Pai is open to",
+    "Tech stack, backend and frontend skills",
+    "Experience at each company (e.g. \"What did Pai do at Codev?\")",
+    "Projects (e.g. \"Tell me about the FoxPro migration tool\")",
+    "Availability, time zone and rates",
+    "Contact details"
+  ],
+  "fallbackLinks": ["email", "form"],
+  "phrases": {
+    "usedYes": [
+      "Yes. Pai has used {tech} {where}.",
+      "Yes, Pai has worked with {tech} {where}."
+    ],
+    "usedStackOnly": [
+      "Yes, {tech} is part of Pai's main stack.",
+      "Yes. {tech} is one of the tools Pai works with day to day."
+    ],
+    "usedWhere": [
+      "Pai used {tech} {where}.",
+      "{tech} shows up {where}."
+    ],
+    "notListed": [
+      "{tech} isn't in Pai's listed skills. Pai's main stack is {stack}.",
+      "I don't see {tech} in Pai's experience or projects. Pai mainly works with {stack}."
+    ],
+    "askDirectly": "If it matters for your project, ask Pai directly.",
+    "usedAtCompanyYes": [
+      "Yes. {tech} was part of Pai's work at {company}.",
+      "Yes, Pai used {tech} at {company}."
+    ],
+    "usedAtCompanyNo": [
+      "{tech} isn't listed for Pai's role at {company}. There, Pai worked with {skills}."
+    ],
+    "roleAt": [
+      "At {company}, Pai {was} {position} ({date}).",
+      "Pai {was} {position} at {company} ({date})."
+    ],
+    "roleWhen": [
+      "Pai {was} {position} at {company}: {date}{duration}.",
+      "{company}: {date}{duration}, as {position}."
+    ],
+    "current": [
+      "Pai is currently {position} at {company}, since {since}.",
+      "Right now Pai is {position} at {company} (since {since})."
+    ],
+    "companies": [
+      "Pai has worked at: {list}.",
+      "Here's where Pai has worked: {list}."
+    ],
+    "projects": [
+      "Pai's featured projects: {list}.",
+      "Here are the projects on Pai's portfolio: {list}."
+    ],
+    "needWhich": "Which technology, company or project do you mean?"
+  },
+  "greetingWords": ["hi", "hello", "hey", "good morning", "good afternoon", "good evening", "kumusta", "musta"],
+  "synonyms": {
+    "frontend": ["front-end", "front end"],
+    "backend": ["back-end", "back end"],
+    "fullstack": ["full-stack", "full stack"],
+    "c#": ["c sharp", "csharp"],
+    ".net": ["dotnet", "dot net", "asp.net"],
+    "javascript": ["js"],
+    "resume": ["cv", "curriculum vitae"],
+    "remote": ["wfh", "work from home"],
+    "rates": ["rate", "price", "pricing", "cost", "salary", "fee", "how much"],
+    "contact": ["reach", "get in touch"],
+    "foxpro": ["fox pro", "dbf"]
+  }
+}

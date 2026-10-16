@@ -1,0 +1,53 @@
+[
+  {
+    "title": "About Pai",
+    "text": [
+      "Pai (Ramer Pailou Nuñeza) is a Software & Product Engineer based in the Philippines who brings legacy systems back to life as modern, secure web applications.",
+      "Pai has 11+ years building web apps across HRIS, hospitality and intellectual property."
+    ],
+    "keywords": ["who", "about", "name", "introduce", "bio", "profile", "person"],
+    "links": ["about", "resume"]
+  },
+  {
+    "title": "This portfolio site",
+    "text": [
+      "This portfolio is an Angular 18 app written in TypeScript, styled with Tailwind CSS and Bootstrap, and hosted on Netlify.",
+      "The loading animation uses GSAP, the planet and repair robot are hand-built SVG animations, and this assistant runs entirely in your browser: it searches Pai's data and builds answers from it, with no AI service involved."
+    ],
+    "keywords": ["this portfolio", "this site", "this website", "portfolio", "site", "website", "built", "made", "created", "source code", "chatbot", "assistant", "robot", "planet", "animation"],
+    "links": ["github"]
+  },
+  {
+    "title": "Pai's resume",
+    "text": [
+      "Pai's full resume covers 11+ years of roles, projects and skills. Open it below, or see the Experience section for each role."
+    ],
+    "keywords": ["resume", "download", "pdf", "document", "see", "view"],
+    "links": ["resume", "experience", "linkedin"]
+  },
+  {
+    "title": "How Pai works",
+    "text": [
+      "Understand the problem first. Before writing code, Pai gathers requirements, shapes and maintains the user stories, and plans the work.",
+      "Legacy rebuilds are Pai's niche, but every project gets the same approach."
+    ],
+    "keywords": ["approach", "process", "work style", "how", "requirements", "user stories", "planning", "agile"],
+    "links": ["about"]
+  },
+  {
+    "title": "What Pai is looking for",
+    "text": [
+      "Legacy system modernization projects, senior C# / .NET and product engineering roles, and API, backend and database-heavy systems."
+    ],
+    "keywords": ["looking for", "interested", "open to", "opportunities", "roles", "next"],
+    "links": ["form", "email"]
+  },
+  {
+    "title": "Working remotely",
+    "text": [
+      "Pai is based in the Philippines (UTC+8) and works remotely with international teams, including Australian clients."
+    ],
+    "keywords": ["remote", "location", "where", "country", "based", "international", "time zone"],
+    "links": ["about"]
+  }
+]

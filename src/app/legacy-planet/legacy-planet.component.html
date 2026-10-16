@@ -1,10 +1,10 @@
-<!-- An old, cracked Earth reworked region by region by a tiny repair robot; styles live in styles.css. -->
+<!-- A legacy Earth, still working, upgraded region by region by a tiny robot that then keeps it maintained; styles live in styles.css. -->
 <svg class="legacy-planet" viewBox="0 0 200 200">
   <defs>
     <radialGradient id="lp-old-sea" cx="35%" cy="30%">
-      <stop offset="0" stop-color="#7d7a72" />
-      <stop offset="0.55" stop-color="#46443f" />
-      <stop offset="1" stop-color="#1f1e1b" />
+      <stop offset="0" stop-color="#7fa3ad" />
+      <stop offset="0.55" stop-color="#3d6170" />
+      <stop offset="1" stop-color="#16303b" />
     </radialGradient>
     <radialGradient id="lp-sea" cx="35%" cy="30%">
       <stop offset="0" stop-color="#6cc1ff" />
@@ -14,6 +14,10 @@
     <radialGradient id="lp-shade" cx="35%" cy="30%">
       <stop offset="0.55" stop-color="#000" stop-opacity="0" />
       <stop offset="1" stop-color="#000" stop-opacity="0.55" />
+    </radialGradient>
+    <radialGradient id="lp-glow">
+      <stop offset="0.85" stop-color="#38e1ff" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#38e1ff" stop-opacity="0" />
     </radialGradient>
     <clipPath id="lp-body"><circle cx="100" cy="100" r="80" /></clipPath>
     <clipPath *ngFor="let region of regions; let i = index" [attr.id]="'lp-region-' + i">
@@ -26,15 +30,18 @@
       <path d="M98 72 C112 68 128 74 132 88 C138 104 130 120 122 136 C116 150 108 152 104 140 C100 126 92 116 90 102 C86 90 88 78 98 72 Z" />
       <path d="M146 128 C156 124 168 128 168 138 C166 146 154 148 146 144 C140 140 140 132 146 128 Z" />
     </g>
-    <!-- Legacy Earth: dried-up seas, barren land and craters. -->
-    <g id="lp-dead">
+    <!-- Legacy Earth: older colours and a few dim lights, but whole and working. -->
+    <g id="lp-legacy">
       <circle cx="100" cy="100" r="80" fill="url(#lp-old-sea)" />
       <use href="#lp-land" class="lp-old-land" />
-      <g class="lp-craters">
-        <circle cx="62" cy="70" r="7" />
-        <circle cx="112" cy="104" r="6" />
-        <circle cx="140" cy="54" r="5" />
-        <circle cx="78" cy="146" r="6" />
+      <g class="lp-old-clouds">
+        <ellipse cx="70" cy="40" rx="22" ry="5" />
+        <ellipse cx="130" cy="92" rx="18" ry="4" />
+        <ellipse cx="60" cy="132" rx="16" ry="4" />
+        <ellipse cx="150" cy="150" rx="20" ry="4.5" />
+      </g>
+      <g class="lp-old-city">
+        <circle *ngFor="let light of legacyLights" [attr.cx]="light.x" [attr.cy]="light.y" r="0.9" />
       </g>
     </g>
     <g id="lp-alive">
@@ -49,28 +56,53 @@
     </g>
   </defs>
 
+  <!-- The upgraded planet's atmosphere glow, brightening as the upgrade spreads. -->
+  <circle #halo cx="100" cy="100" r="92" fill="url(#lp-glow)" opacity="0" />
+
+  <!-- Orbits drawn whole behind the planet (it hides their far side), then their near half again in front; both share one #orbit index per satellite. -->
+  <g *ngFor="let s of satellites" #orbit class="lp-orbit" [attr.transform]="'rotate(' + s.tilt + ' 100 100)'" opacity="0">
+    <ellipse cx="100" cy="100" [attr.rx]="s.rx" [attr.ry]="s.ry" />
+  </g>
+
+  <!-- The robot is moved in here while it flies round the back of the planet. -->
+  <g #botBehind></g>
+
   <g clip-path="url(#lp-body)">
     <g *ngFor="let region of regions; let i = index" [attr.clip-path]="'url(#lp-region-' + i + ')'">
-      <use href="#lp-dead" />
-      <polygon class="lp-crack" [attr.points]="region.outline" />
+      <use href="#lp-legacy" />
       <use #alive href="#lp-alive" opacity="0" />
-      <!-- The upgrade: city lights switch on once the region is back to life. -->
+      <!-- The upgrade: many more, brighter city lights once the region is powered up. -->
       <g #lights class="lp-city" opacity="0">
-        <circle *ngFor="let light of region.lights" [attr.cx]="light.x" [attr.cy]="light.y" r="1.2" />
+        <circle *ngFor="let light of region.lights" [attr.cx]="light.x" [attr.cy]="light.y" r="1.1" />
       </g>
       <circle #flash class="lp-region-flash" cx="100" cy="100" r="80" opacity="0" />
     </g>
   </g>
   <circle cx="100" cy="100" r="80" fill="url(#lp-shade)" />
 
-  <!-- Weld lines along each region's cracks: hot while the torch passes, then cooling into a fading scar. -->
+  <g *ngFor="let s of satellites" #orbit class="lp-orbit" [attr.transform]="'rotate(' + s.tilt + ' 100 100)'" opacity="0">
+    <path [attr.d]="'M' + (100 + s.rx) + ' 100 A' + s.rx + ' ' + s.ry + ' 0 0 1 ' + (100 - s.rx) + ' 100'" />
+  </g>
+
+  <!-- Upgrade traces the robot lays along each region's edges: white-hot under the torch, then a fading cyan glow. -->
   <path #seam *ngFor="let region of regions" class="lp-weld" [attr.d]="region.seam" pathLength="1" />
 
-  <!-- The tiny repair robot: faces where it flies and welds with the spark under its nose. -->
-  <g #bot class="lp-bot-wrap" transform="translate(-200 -200)">
-    <path class="lp-bot-flame" d="M-9 -1.5 Q-16 0 -9 1.5 Z" />
-    <rect class="lp-bot" x="-9" y="-3" width="10" height="6" rx="2" />
-    <circle class="lp-bot" cx="4" cy="0" r="3.6" />
-    <circle class="lp-spark" cx="-1" cy="8" r="2.4" />
+  <!-- Satellites launched by the upgrade; they disappear while passing behind the planet. -->
+  <g *ngFor="let s of satellites" #sat class="lp-sat" opacity="0">
+    <rect class="lp-sat-panel" x="-6.4" y="-1" width="4" height="2" />
+    <rect class="lp-sat-panel" x="2.4" y="-1" width="4" height="2" />
+    <rect class="lp-sat-body" x="-2" y="-1.8" width="4" height="3.6" rx="0.6" />
+    <circle class="lp-sat-beacon" cx="0" cy="-2.6" r="0.7" />
+  </g>
+
+  <!-- The tiny repair robot: faces where it flies and welds with the spark under its nose. Docks as the hire assistant when done. -->
+  <g #botFront>
+    <g #bot transform="translate(-200 -200)">
+      <path class="lp-bot-flame lp-bot-tail" d="M-9 -1.5 Q-16 0 -9 1.5 Z" />
+      <rect class="lp-bot lp-bot-tail" x="-9" y="-3" width="10" height="6" rx="2" />
+      <circle class="lp-bot" cx="4" cy="0" r="3.6" />
+      <circle class="lp-bot-eye" cx="5.4" cy="-0.8" r="0.9" />
+      <circle class="lp-spark" cx="-1" cy="8" r="2.4" />
+    </g>
   </g>
 </svg>

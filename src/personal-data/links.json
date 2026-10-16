@@ -1,0 +1,13 @@
+{
+  "form": { "label": "Contact form", "href": "#contact", "icon": "fas fa-paper-plane" },
+  "email": { "label": "Email", "href": "mailto:{email}?subject=Hiring%20inquiry", "icon": "fas fa-envelope" },
+  "call": { "label": "Call", "href": "tel:{phoneDigits}", "icon": "fas fa-phone" },
+  "viber": { "label": "Viber", "href": "viber://chat?number={phoneDigits:url}", "icon": "fab fa-viber" },
+  "messenger": { "label": "Messenger", "href": "{messenger}", "icon": "fab fa-facebook-messenger", "external": true },
+  "linkedin": { "label": "LinkedIn", "href": "{linkedin}", "icon": "fab fa-linkedin", "external": true },
+  "github": { "label": "GitHub", "href": "{github}", "icon": "fab fa-github", "external": true },
+  "resume": { "label": "Resume", "href": "{resume}", "icon": "fas fa-file-alt", "external": true },
+  "projects": { "label": "Projects", "href": "#works", "icon": "fas fa-folder-open" },
+  "experience": { "label": "Experience", "href": "#experience", "icon": "fas fa-briefcase" },
+  "about": { "label": "About", "href": "#about", "icon": "fas fa-user" }
+}

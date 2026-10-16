@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import skills from '../../../personal-data/skills.json';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  stack = ['C# / .NET', 'React', 'Angular', 'Vue', 'SQL Server', 'Docker', 'Claude AI'];
+  /** Shared with the hire assistant; edit it in src/personal-data/skills.json. */
+  stack = skills.mainStack;
 }

@@ -1,0 +1,14 @@
+{
+  "pai": {
+    "zone": "Asia/Manila",
+    "place": "Manila",
+    "start": 9,
+    "end": 18,
+    "days": [1, 2, 3, 4, 5]
+  },
+  "visitor": {
+    "start": 8,
+    "end": 20,
+    "days": [1, 2, 3, 4, 5]
+  }
+}

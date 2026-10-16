@@ -1,0 +1,5 @@
+{
+  "mainStack": ["C# / .NET", "TypeScript", "React", "Angular", "Vue", "SQL Server", "Docker", "Claude AI"],
+  "notListed": ["Python", "Java", "Golang", "Ruby", "Rails", "Rust", "Kotlin", "Swift", "Flutter", "Dart", "Scala", "Elixir", "Node.js", "Express.js", "NestJS", "Next.js", "Nuxt", "Svelte", "Django", "Flask", "FastAPI", "Spring", "Laravel", "WordPress", "Shopify", "PostgreSQL", "MongoDB", "Redis", "Firebase", "GraphQL", "Kubernetes", "Terraform", "AWS", "Azure", "Google Cloud", "GCP", "React Native", "Unity", "Salesforce", "SAP", "Power BI", "Tableau"],
+  "notTechnologies": ["Legacy Modernization", "Web Applications", "Public Sector", "Agile", "DBF Migration", "Team Leadership", "Reporting", "HRIS", "QA Support", "Documentation", "Workflow Systems", "Task-Based Development"]
+}
